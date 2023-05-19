@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Model.Entities;
 
 namespace DataAccess.Models;
 
-public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
+public partial class GVDbContext : DbContext
 {
-    public DbContext()
+    public GVDbContext()
     {
     }
 
-    public DbContext(DbContextOptions<DbContext> options)
+    public GVDbContext(DbContextOptions<GVDbContext> options)
         : base(options)
     {
     }
@@ -78,9 +79,18 @@ public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
     #endregion DbSets
 
 
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+    //        => optionsBuilder.UseSqlServer("Server=localhost;Database=GuardianVape;User Id=sa;Password=123;TrustServerCertificate=true;Encrypt=false;");
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=GuardianVape;User Id=sa;Password=123;TrustServerCertificate=true;Encrypt=false;");
+    {
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+        optionsBuilder.UseSqlServer(configuration.GetConnectionString("GV_DBConnection"));
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
