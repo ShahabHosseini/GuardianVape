@@ -86,7 +86,7 @@ public partial class GVDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
             .Build();
         optionsBuilder.UseSqlServer(configuration.GetConnectionString("GV_DBConnection"));

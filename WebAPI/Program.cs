@@ -1,5 +1,7 @@
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<GVDbContext>(Options =>
+Options.UseSqlServer(builder.Configuration.GetConnectionString("GV_DBConnection")));
 
 var app = builder.Build();
 
