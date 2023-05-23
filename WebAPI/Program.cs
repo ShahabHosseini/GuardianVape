@@ -1,4 +1,4 @@
-using DataAccess.Models;
+using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;

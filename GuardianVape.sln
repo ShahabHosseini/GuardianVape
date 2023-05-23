@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "GuardianVape\DataAccess.csproj", "{3625F483-D068-49FF-8020-98D7DA4F08EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "GuardianVape\DataAccess.csproj", "{3625F483-D068-49FF-8020-98D7DA4F08EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{8506515B-ECDD-480F-B0D1-339DF354A85D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{8506515B-ECDD-480F-B0D1-339DF354A85D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{F78F9196-DB49-423A-8B9D-F8330EDE163B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{F78F9196-DB49-423A-8B9D-F8330EDE163B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Share", "Share\Share.csproj", "{01DF4B81-90C6-4F25-B330-BA709CFF43AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Share", "Share\Share.csproj", "{01DF4B81-90C6-4F25-B330-BA709CFF43AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hellper", "Hellper\Hellper.csproj", "{8ADD1653-CCE9-44B4-A307-69773327E8E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hellper", "Hellper\Hellper.csproj", "{8ADD1653-CCE9-44B4-A307-69773327E8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{9C735744-A412-408A-86B7-168A1265914F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.BackEnd", "WebAPI\WebAPI.BackEnd.csproj", "{9C735744-A412-408A-86B7-168A1265914F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
