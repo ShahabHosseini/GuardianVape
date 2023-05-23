@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Contracts
+namespace Service.Contracts
 {
-    public interface IDbContext
+    public interface IAddressService
     {
+
     }
 }

@@ -1,20 +1,17 @@
-﻿using DataAccess.EntityConfiguration;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Model.Entities;
+using System.Reflection;
 
 namespace DataAccess.Context;
 
 public partial class GVDbContext : DbContext
 {
-    public GVDbContext()
-    {
-    }
+    public GVDbContext(){ }
 
     public GVDbContext(DbContextOptions<GVDbContext> options)
-        : base(options)
-    {
-    }
+        : base(options){  }
+
     #region DbSets
 
     public virtual DbSet<Address> Addresses { get; set; }
@@ -88,42 +85,9 @@ public partial class GVDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        #region ModelCreating
-
-        modelBuilder.ApplyConfiguration(new AddressEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new BodyEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new CategoryEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new CategoryGroupEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new CollectionEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ConditionRoleEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ConditionRoleTypeEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ConditionTypeEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new CountryEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new CustomerEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new InventoryEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new MediumEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new OrderEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new OrderProductEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new PhoneEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductCollectionEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductTagEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductTypeEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductVariantEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new RelatedTagEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new SearchEnginListingEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ShopLocationEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new TagEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new TimeLineEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new UnitEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new VariantEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new VendorEntityConfiguration());
-
-        #endregion ModelCreating
-
         OnModelCreatingPartial(modelBuilder);
 
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

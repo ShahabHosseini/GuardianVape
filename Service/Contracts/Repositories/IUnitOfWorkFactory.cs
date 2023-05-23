@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Contracts
+namespace Service.Contracts.Repositories
 {
-    public interface IRepository
+    public interface IUnitOfWorkFactory
     {
-
+        IUnitOfWork Create();
     }
 }
