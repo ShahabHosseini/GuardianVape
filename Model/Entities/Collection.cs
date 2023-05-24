@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
-public partial class Collection
+public partial class Collection : EntityBase
 {
-    public int Id { get; set; }
-
-    public string Guid { get; set; } = null!;
-
     public string Title { get; set; } = null!;
 
     public string? Description { get; set; }

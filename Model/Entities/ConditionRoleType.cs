@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
-public partial class ConditionRoleType
+public partial class ConditionRoleType : EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public int? ConditionRoleId { get; set; }
 
     public int? ConditionTypeId { get; set; }

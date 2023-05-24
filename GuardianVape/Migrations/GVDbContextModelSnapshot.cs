@@ -52,11 +52,6 @@ namespace DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<string>("House")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -93,11 +88,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("BodyText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<byte[]>("Media")
                         .HasMaxLength(50)
                         .HasColumnType("binary(50)")
@@ -121,11 +111,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CategoryGroupID");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -145,11 +130,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<string>("Title")
                         .HasMaxLength(50)
@@ -172,12 +152,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Guid")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<byte[]>("Media")
                         .HasColumnType("varbinary(max)");
@@ -215,11 +189,6 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -253,11 +222,6 @@ namespace DataAccess.Migrations
                     b.Property<int?>("ConditionTypeId")
                         .HasColumnType("int")
                         .HasColumnName("ConditionTypeID");
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<int?>("ProductTypeId")
                         .HasColumnType("int")
@@ -299,11 +263,6 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -325,11 +284,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("AreaCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<string>("Title")
                         .HasMaxLength(50)
@@ -367,11 +321,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("FristName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<string>("Language")
                         .HasMaxLength(10)
@@ -415,11 +364,6 @@ namespace DataAccess.Migrations
                     b.Property<bool?>("ContinueSellingOutOfStock")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("ProductID");
@@ -455,11 +399,6 @@ namespace DataAccess.Migrations
                     b.Property<int?>("CollectionId")
                         .HasColumnType("int")
                         .HasColumnName("CollectionID");
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
@@ -515,11 +454,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("FulfillmentStatusID");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<int?>("Items")
                         .HasColumnType("int");
 
@@ -559,11 +493,6 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<int?>("OrderId")
                         .HasColumnType("int")
                         .HasColumnName("OrderID");
@@ -594,11 +523,6 @@ namespace DataAccess.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nchar(10)")
                         .IsFixedLength();
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(12)
@@ -634,11 +558,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 0)");
@@ -698,11 +617,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CollectionID");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("ProductID");
@@ -724,11 +638,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
@@ -756,11 +665,6 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -778,11 +682,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
@@ -818,11 +717,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CostumerID");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("ProductID");
@@ -844,11 +738,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<string>("MetaDescription")
                         .HasMaxLength(320)
@@ -883,11 +772,6 @@ namespace DataAccess.Migrations
                     b.Property<int?>("Committed")
                         .HasColumnType("int");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<int?>("InventoryId")
                         .HasColumnType("int")
                         .HasColumnName("InventoryID");
@@ -910,11 +794,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int")
@@ -948,11 +827,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CustomerID");
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<string>("Header")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -985,11 +859,6 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
-
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -1008,10 +877,29 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FristName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -1030,11 +918,6 @@ namespace DataAccess.Migrations
                     b.Property<int?>("ColorId")
                         .HasColumnType("int")
                         .HasColumnName("ColorID");
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<byte[]>("Image")
                         .HasMaxLength(50)
@@ -1061,11 +944,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Guid")
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)")
-                        .HasColumnName("GUID");
 
                     b.Property<string>("Title")
                         .HasMaxLength(50)

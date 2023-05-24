@@ -20,9 +20,6 @@ namespace DataAccess.EntityConfiguration
             builder.Property(e => e.Company).HasMaxLength(50);
             builder.Property(e => e.CountryId).HasColumnName("CountryID");
             builder.Property(e => e.FristName).HasMaxLength(50);
-            builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
             builder.Property(e => e.House).HasMaxLength(50);
             builder.Property(e => e.LastName).HasMaxLength(50);
             builder.Property(e => e.PhoneId).HasColumnName("PhoneID");

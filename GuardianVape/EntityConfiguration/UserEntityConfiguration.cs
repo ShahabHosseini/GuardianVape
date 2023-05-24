@@ -9,12 +9,12 @@ namespace DataAccess.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-                builder.ToTable("User");
-
-                builder.Property(e => e.Id).HasColumnName("ID");
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
+           builder.ToTable("User");
+            builder.Property(e => e.Id).HasColumnName("ID");
+            builder.Property(e => e.FristName).HasMaxLength(50);
+            builder.Property(e => e.LastName).HasMaxLength(50);
+            builder.Property(e => e.UserName).HasMaxLength(50);
+            builder.Property(e => e.Email).HasMaxLength(50);
         }
     }
 }

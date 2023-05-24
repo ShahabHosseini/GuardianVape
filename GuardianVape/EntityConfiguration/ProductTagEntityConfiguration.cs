@@ -9,9 +9,6 @@ namespace DataAccess.EntityConfiguration
         public void Configure(EntityTypeBuilder<ProductTag> builder)
         {
                 builder.Property(e => e.Id).HasColumnName("ID");
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.ProductId).HasColumnName("ProductID");
                 builder.Property(e => e.TagId).HasColumnName("TagID");
 

@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class OrderProduct
+public partial class OrderProduct : EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public int? OrderId { get; set; }
 
     public int? ProductId { get; set; }

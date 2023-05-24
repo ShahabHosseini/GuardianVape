@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class Category
+public partial class Category : EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public string? Title { get; set; }
 
     public int? CategoryGroupId { get; set; }

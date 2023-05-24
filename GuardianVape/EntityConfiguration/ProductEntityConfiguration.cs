@@ -15,9 +15,6 @@ namespace DataAccess.EntityConfiguration
                 builder.Property(e => e.CompareatPrice).HasColumnType("decimal(18, 0)");
                 builder.Property(e => e.CostPerItem).HasColumnType("decimal(18, 0)");
                 builder.Property(e => e.Description).HasMaxLength(1000);
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.Price).HasColumnType("decimal(18, 0)");
                 builder.Property(e => e.ProductTypeId).HasColumnName("ProductTypeID");
                 builder.Property(e => e.SearchEnginListingId).HasColumnName("SearchEnginListingID");

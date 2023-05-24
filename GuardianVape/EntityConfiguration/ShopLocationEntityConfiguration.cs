@@ -11,9 +11,6 @@ namespace DataAccess.EntityConfiguration
                 builder.ToTable("ShopLocation");
 
                 builder.Property(e => e.Id).HasColumnName("ID");
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.InventoryId).HasColumnName("InventoryID");
 
                 builder.HasOne(d => d.Inventory).WithMany(p => p.ShopLocations)

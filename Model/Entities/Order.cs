@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class Order
+public partial class Order : EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public string? Name { get; set; }
 
     public DateTime? Date { get; set; }

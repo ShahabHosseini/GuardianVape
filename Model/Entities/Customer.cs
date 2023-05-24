@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class Customer
+public partial class Customer : EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public string? FristName { get; set; }
 
     public string? LastName { get; set; }

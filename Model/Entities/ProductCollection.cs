@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class ProductCollection
+public partial class ProductCollection : EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public int? ProductId { get; set; }
 
     public int? CollectionId { get; set; }

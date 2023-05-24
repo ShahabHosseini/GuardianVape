@@ -1,16 +1,11 @@
-﻿using DataAccess.Context;
-using Microsoft.EntityFrameworkCore;
-using Service.Contracts.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using Model.Base;
+using Model.Contracts.Repositories;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Implementations.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : EntityBase
     {
         
         protected readonly DbContext _context;

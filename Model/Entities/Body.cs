@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class Body
+public partial class Body :EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public string? BodyText { get; set; }
 
     public byte[]? Media { get; set; }

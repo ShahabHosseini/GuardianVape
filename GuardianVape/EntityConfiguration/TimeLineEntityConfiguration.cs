@@ -14,9 +14,6 @@ namespace DataAccess.EntityConfiguration
                 builder.Property(e => e.Id).HasColumnName("ID");
                 builder.Property(e => e.BodyId).HasColumnName("BodyID");
                 builder.Property(e => e.CustomerId).HasColumnName("CustomerID");
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.Header).HasMaxLength(200);
                 builder.Property(e => e.TimelineTypeId).HasColumnName("TimelineTypeID");
                 builder.Property(e => e.UserId).HasColumnName("UserID");

@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class ShopLocation
+public partial class ShopLocation : EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public int? Committed { get; set; }
 
     public int? Available { get; set; }

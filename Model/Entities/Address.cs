@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class Address
+public partial class Address :EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public int? CountryId { get; set; }
 
     public string? FristName { get; set; }

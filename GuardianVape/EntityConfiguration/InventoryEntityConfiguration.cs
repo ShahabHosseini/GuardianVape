@@ -12,9 +12,6 @@ namespace DataAccess.EntityConfiguration
 
                 builder.Property(e => e.Id).HasColumnName("ID");
                 builder.Property(e => e.Barcode).HasMaxLength(50);
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.ProductId).HasColumnName("ProductID");
                 builder.Property(e => e.ShopLocationId).HasColumnName("ShopLocationID");
                 builder.Property(e => e.Sku)

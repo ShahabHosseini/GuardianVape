@@ -16,9 +16,6 @@ namespace DataAccess.EntityConfiguration
             builder.Property(e => e.CollectionId).HasColumnName("CollectionID");
             builder.Property(e => e.ConditionRoleId).HasColumnName("ConditionRoleID");
             builder.Property(e => e.ConditionTypeId).HasColumnName("ConditionTypeID");
-            builder.Property(e => e.Guid)
-                .HasMaxLength(36)
-                .HasColumnName("GUID");
             builder.Property(e => e.ProductTypeId).HasColumnName("ProductTypeID");
             builder.Property(e => e.TagId).HasColumnName("TagID");
             builder.Property(e => e.VendorId).HasColumnName("VendorID");

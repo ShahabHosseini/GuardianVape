@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Model.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities;
 
-public partial class Country
+public partial class Country : EntityBase
 {
-    public int Id { get; set; }
-
-    public string? Guid { get; set; }
-
     public string? Title { get; set; }
 
     public string? AreaCode { get; set; }

@@ -16,9 +16,6 @@ namespace DataAccess.EntityConfiguration
                 builder.Property(e => e.AgreedSms).HasColumnName("AgreedSMS");
                 builder.Property(e => e.Email).HasMaxLength(50);
                 builder.Property(e => e.FristName).HasMaxLength(50);
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.Language)
                     .HasMaxLength(10)
                     .IsFixedLength();

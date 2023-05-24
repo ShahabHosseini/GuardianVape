@@ -14,9 +14,6 @@ namespace DataAccess.EntityConfiguration
                 builder.Property(e => e.AreaCode)
                     .HasMaxLength(10)
                     .IsFixedLength();
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.PhoneNumber).HasMaxLength(12);
         }
     }

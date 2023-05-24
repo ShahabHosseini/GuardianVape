@@ -10,5 +10,6 @@ namespace Service.Contracts.Repositories
     //Its for Address Country And Phone 
     public interface IAddressRepository : IGenericRepository<Address>
     {
+        
     }
 }

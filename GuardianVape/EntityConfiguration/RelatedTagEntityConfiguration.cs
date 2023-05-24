@@ -12,9 +12,6 @@ namespace DataAccess.EntityConfiguration
 
                 builder.Property(e => e.Id).HasColumnName("ID");
                 builder.Property(e => e.CostumerId).HasColumnName("CostumerID");
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 builder.HasOne(d => d.Costumer).WithMany(p => p.RelatedTags)

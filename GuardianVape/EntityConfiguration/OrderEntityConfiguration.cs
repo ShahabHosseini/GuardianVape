@@ -15,9 +15,6 @@ namespace DataAccess.EntityConfiguration
                 builder.Property(e => e.Date).HasColumnType("datetime");
                 builder.Property(e => e.DeliveryMethodId).HasColumnName("DeliveryMethodID");
                 builder.Property(e => e.FulfillmentStatusId).HasColumnName("FulfillmentStatusID");
-                builder.Property(e => e.Guid)
-                    .HasMaxLength(36)
-                    .HasColumnName("GUID");
                 builder.Property(e => e.Name).HasMaxLength(50);
                 builder.Property(e => e.OrderProductId).HasColumnName("OrderProductID");
                 builder.Property(e => e.PaymentStatusId).HasColumnName("PaymentStatusID");

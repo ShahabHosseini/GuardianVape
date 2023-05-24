@@ -1,6 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccess.Implementations.Repositories;
-using Service.Contracts.Repositories;
+using Model.Contracts.Repositories;
 
 namespace DataAccess.Implementations
 {
