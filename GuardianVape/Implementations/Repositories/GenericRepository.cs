@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model.Base;
-using Model.Contracts.Repositories;
+using Service.Contracts.Repositories;
 using System.Linq.Expressions;
 
 namespace DataAccess.Implementations.Repositories

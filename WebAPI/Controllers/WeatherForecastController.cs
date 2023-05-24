@@ -1,4 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Service.Contracts;
+using Service.Contracts.Services;
+using Service.Implementations.Servises;
+using Share.DTO;
 
 namespace WebAPI.Controllers
 {
@@ -6,6 +10,7 @@ namespace WebAPI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -13,21 +18,19 @@ namespace WebAPI.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
+        private  IAddressService _addressService;
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<AddressDto> Get(IAddressService addressService)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            _addressService=addressService;
+        
+            var result= await  addressService.GetAsync(1);
+            return result;
         }
     }
 }

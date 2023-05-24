@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.Contracts.Services
 {
-    internal interface IAddressService :IBaseServices<AddressDto>
+    public interface IAddressService :IBaseServices<AddressDto>
     {
     }
 }

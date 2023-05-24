@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Model.Entities;
 using Service.Contracts.Repositories;
 using Service.Contracts.Services;
 using Share.DTO;
@@ -9,10 +10,14 @@ namespace Service.Implementations.Servises
     {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         public virtual IMapper Mapper { get; set; }
+        MapperConfiguration Configuration { get; set; }
 
-        public AddressService(IUnitOfWorkFactory unitOfWorkFactory)
+        public AddressService(IUnitOfWorkFactory unitOfWorkFactory,IMapper mapper)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
+            Mapper = mapper;
+            Configuration = new MapperConfiguration(cfg => cfg.CreateMap<Address, AddressDto>());
+            Configuration.AssertConfigurationIsValid();
         }
         public AddressDto Get(int id)
         {
@@ -31,10 +36,12 @@ namespace Service.Implementations.Servises
 
         public async Task<AddressDto> GetAsync(int id)
         {
+            var mapper = new Mapper(Configuration);
+
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
                 var addres = await unitOfWork.Address.GetAsync(id);
-                 return Mapper.Map<AddressDto>(addres);
+                 return mapper.Map<AddressDto>(addres);
             }
         }
     }
