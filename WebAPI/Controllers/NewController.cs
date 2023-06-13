@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 
 // In SDK-style projects such as this one, several assembly attributes that were historically
@@ -14,4 +15,9 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM.
 
-[assembly: Guid("de7bf4b1-b02a-4496-a7c8-907f42e8813a")]
+[assembly: Guid("131a7b6b-fa87-489f-bb7b-294fded0981c")]
+
+public class NewController : ControllerBase
+{
+    
+}

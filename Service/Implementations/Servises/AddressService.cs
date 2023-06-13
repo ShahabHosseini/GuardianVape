@@ -18,6 +18,7 @@ namespace Service.Implementations.Servises
             Mapper = mapper;
             Configuration = new MapperConfiguration(cfg => cfg.CreateMap<Address, AddressDto>());
             Configuration.AssertConfigurationIsValid();
+            Mapper = new Mapper(Configuration);
         }
         public AddressDto Get(int id)
         {
@@ -36,12 +37,11 @@ namespace Service.Implementations.Servises
 
         public async Task<AddressDto> GetAsync(int id)
         {
-            var mapper = new Mapper(Configuration);
 
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
                 var addres = await unitOfWork.Address.GetAsync(id);
-                 return mapper.Map<AddressDto>(addres);
+                 return Mapper.Map<AddressDto>(addres);
             }
         }
     }

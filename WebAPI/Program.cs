@@ -14,10 +14,21 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(option => 
+{
+    option.AddPolicy("mypolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+} );
+
 builder.Services.AddDbContext<GVDbContext>(Options =>
 Options.UseSqlServer(builder.Configuration.GetConnectionString("GV_DBConnection")));
 builder.Services.AddTransient<IUnitOfWorkFactory, UnitOfWorkFactory>();
 builder.Services.AddTransient<IAddressService, AddressService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //Or typeof(Program).Assembly Shahab
 var app = builder.Build();
 
@@ -31,7 +42,8 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
-
+app.UseCors("mypolicy");
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

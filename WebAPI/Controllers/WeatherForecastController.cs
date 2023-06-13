@@ -11,25 +11,23 @@ namespace WebAPI.Controllers
     public class WeatherForecastController : ControllerBase
     {
 
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
         private readonly ILogger<WeatherForecastController> _logger;
 
-        private  IAddressService _addressService;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+
+        private IAddressService _addressService;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IAddressService addressService)
         {
+
+            _addressService = addressService;
             _logger = logger;
         }
 
+
         [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<AddressDto> Get(IAddressService addressService)
-        {
-            _addressService=addressService;
-        
-            var result= await  addressService.GetAsync(1);
+        public async Task<AddressDto> Get()
+        {;
+
+            var result = await _addressService.GetAsync(1);
             return result;
         }
     }
