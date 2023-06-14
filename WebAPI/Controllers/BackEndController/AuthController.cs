@@ -3,6 +3,7 @@ using Service.Contracts;
 using Service.Contracts.Services;
 using Service.Implementations.Servises;
 using Share.DTO;
+using Share.Helper;
 
 namespace WebAPI.Controllers
 {
@@ -31,17 +32,29 @@ namespace WebAPI.Controllers
 
            // var result = await _userService.GetAsync(userDto);
             if (user == null) { return NotFound(); }
-            return Ok("Login Success");
+
+            return Ok(new {Message="Login Succes!"});
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserDto userDto)
         {
             if (userDto == null) { return BadRequest("User is null"); }
+            var password =PasswordHasher.HashPassword(userDto.Password);
+            userDto.Role = "User";
+            userDto.Token = "";
+            try
+            {
+                await _userService.AddAsync(userDto);
 
-            await _userService.AddAsync(userDto);
+            }
+            catch (Exception ex)
+            {
 
-            return Ok("User registerd");
+                return BadRequest(new { Message = ex.Message });
+            }
+
+            return Ok(new { Message = "User registerd!" });
         }
     }
 }
