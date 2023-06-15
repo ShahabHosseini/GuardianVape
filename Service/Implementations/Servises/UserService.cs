@@ -36,7 +36,7 @@ namespace Service.Implementations.Servises
         public async Task AddAsync(UserDto userDto)
         {
             var password = PasswordHasher.HashPassword(userDto.Password);
-            var res = await _userValidator.UserNameExist(userDto.UserName, userDto.Email, password);
+            var res = await _userValidator.UserNameExist(userDto.UserName, userDto.Email, userDto.Password);
             if (!string.IsNullOrEmpty(res))
                 throw new Exception(res);
 

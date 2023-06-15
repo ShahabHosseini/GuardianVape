@@ -40,7 +40,6 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> RegisterUser([FromBody] UserDto userDto)
         {
             if (userDto == null) { return BadRequest(new { Message = "User Not Found" }); }
-            var password =PasswordHasher.HashPassword(userDto.Password);
             userDto.Role = "User";
             userDto.Token = "";
             try
