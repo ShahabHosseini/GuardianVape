@@ -23,15 +23,15 @@ namespace Service.Implementations.Validation
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
                 var username = await unitOfWork.User.FindAsync(x => x.UserName == userName);
-                if (username == null) sb.AppendLine("User Name Already Exist");
-                var useremail = await unitOfWork.User.FindAsync(x => x.Email == userName);
-                if (useremail == null) sb.AppendLine("Email Already Exist");
+                if (username != null) sb.AppendLine("User Name Already Exist");
+                var useremail = await unitOfWork.User.FindAsync(x => x.Email == email);
+                if (useremail != null) sb.AppendLine("Email Already Exist");
 
                 if (password.Length < 8)
                     sb.AppendLine("Minimum password lenght should be 8!");
                 if (!(Regex.IsMatch(password, "[a-z]") && Regex.IsMatch(password, "[A-Z]") && Regex.IsMatch(password, "[0-9]")))
                     sb.AppendLine("Password should be Alphanumeric!");
-                if (!Regex.IsMatch(password, "[.,[,{,(,*,+,?,^,$,|,r,n,_,-],"))
+                if (!(Regex.IsMatch(password, "[<,>,.,[,{,(,*,+,?,^,$,|,_,-]")))
                     sb.AppendLine("Password should be special chars!");
 
             }

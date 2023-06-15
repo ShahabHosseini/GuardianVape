@@ -35,7 +35,8 @@ namespace Service.Implementations.Servises
 
         public async Task AddAsync(UserDto userDto)
         {
-            var res = await _userValidator.UserNameExist(userDto.UserName, userDto.Email, userDto.Password);
+            var password = PasswordHasher.HashPassword(userDto.Password);
+            var res = await _userValidator.UserNameExist(userDto.UserName, userDto.Email, password);
             if (!string.IsNullOrEmpty(res))
                 throw new Exception(res);
 
@@ -44,6 +45,7 @@ namespace Service.Implementations.Servises
                 Configuration = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, User>());
                 Mapper = new Mapper(Configuration);
                 var user= Mapper.Map<User>(userDto);
+                user.Password = password;
                await unitOfWork.User.AddAsync(user);
                 await unitOfWork.Commit();
             }
@@ -58,6 +60,7 @@ namespace Service.Implementations.Servises
                 var user = await unitOfWork.User.FindAsync(x =>
                 x.UserName.Equals(userDto.UserName));
 
+                if(user!=null)
                 if(PasswordHasher.VerifyPassword(userDto.Password,user.Password))
                     return Mapper.Map<UserDto>(user);
                 return null;
