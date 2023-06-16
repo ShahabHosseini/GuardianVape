@@ -1,9 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Model.Entities;
 using Service.Contracts;
 using Service.Contracts.Services;
 using Service.Implementations.Servises;
 using Share.DTO;
 using Share.Helper;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using WebAPI.BackEnd.Token;
 
 namespace WebAPI.Controllers
 {
@@ -33,7 +40,12 @@ namespace WebAPI.Controllers
            // var result = await _userService.GetAsync(userDto);
             if (user == null) { return NotFound(); }
 
-            return Ok(new {Message="Login Succes!"});
+            userDto.Token= JwtToken.CreateJwtToken(user);
+
+            return Ok(new 
+            {   Token= userDto.Token,
+                Message="Login Succes!"
+            });;
         }
 
         [HttpPost("register")]
@@ -54,6 +66,13 @@ namespace WebAPI.Controllers
             }
 
             return Ok(new { Message = "User registerd!" });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetResultAsync()
+        {
+            return Ok(await _userService.GetAllAsync());
         }
     }
 }

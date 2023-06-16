@@ -10,6 +10,7 @@ namespace Service.Contracts.Services
     public interface IUserService
     {
         Task AddAsync(UserDto userDto);
+        Task<List<UserDto>> GetAllAsync();
         Task<UserDto> GetAsync(UserDto userDto);
     }
 }

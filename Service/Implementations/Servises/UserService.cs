@@ -66,5 +66,14 @@ namespace Service.Implementations.Servises
                 return null;
             }
         }
+
+        public async Task<List<UserDto>> GetAllAsync()
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+              var user =  await unitOfWork.User.GetAllAsync();
+                return Mapper.Map<List<UserDto>>(user);
+            }
+        }
     }
 }
