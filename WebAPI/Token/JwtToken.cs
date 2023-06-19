@@ -15,7 +15,7 @@ namespace WebAPI.BackEnd.Token
             var identity = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.Role, userDto.Role),
-                new Claim(ClaimTypes.Name,$"{userDto.UserName}")
+                new Claim(ClaimTypes.Name,$"{userDto.FristName + " " +  userDto.LastName}")
             });
 
             var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
@@ -23,7 +23,7 @@ namespace WebAPI.BackEnd.Token
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = identity,
-                Expires = DateTime.Now.AddSeconds(10),
+                Expires = DateTime.Now.AddDays(10),
                 SigningCredentials = credentials
             };
             var token = jwtTokenHandler.CreateToken(tokenDescriptor);
