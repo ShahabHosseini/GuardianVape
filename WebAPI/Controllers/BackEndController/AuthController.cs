@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
             var newRefreshToken = jwtToken.CreateRefreshToken();
             user.RefreshToken = newRefreshToken;
             user.RefreshTokenExpiryTime = DateTime.Now.AddDays(5);
-             await _userService.UpdateAsync(userDto);
+             await _userService.UpdateAsync(user);
             return Ok(new  TokenApiDto()  
             {   AccessToken= newAccessToken,
                 RefreshToken=newRefreshToken
