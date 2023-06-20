@@ -75,5 +75,27 @@ namespace Service.Implementations.Servises
                 return Mapper.Map<List<UserDto>>(user);
             }
         }
+
+        public async Task UpdateAsync(UserDto userDto)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                Configuration = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, User>());
+                Mapper = new Mapper(Configuration);
+                var user = Mapper.Map<User>(userDto);
+               // user.Id=userDto.Id;
+                await unitOfWork.User.UpdateAsync(user, user.Id);
+                await unitOfWork.Commit();
+            }
+        }
+
+        public async Task<UserDto> FindAsync(string userName)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                var user = await unitOfWork.User.FindAsync(x => x.UserName.Equals(userName));
+                return Mapper.Map<UserDto>(user);
+            }
+        }
     }
 }

@@ -39,12 +39,17 @@ namespace WebAPI.Controllers
 
            // var result = await _userService.GetAsync(userDto);
             if (user == null) { return NotFound(); }
+            var jwtToken=new JwtToken(_userService);
 
-            userDto.Token= JwtToken.CreateJwtToken(user);
-
-            return Ok(new 
-            {   Token= userDto.Token,
-                Message="Login Succes!"
+            user.Token = jwtToken.CreateJwtToken(user);
+            var newAccessToken = user.Token;
+            var newRefreshToken = jwtToken.CreateRefreshToken();
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(5);
+             await _userService.UpdateAsync(userDto);
+            return Ok(new  TokenApiDto()  
+            {   AccessToken= newAccessToken,
+                RefreshToken=newRefreshToken
             });;
         }
 
@@ -74,5 +79,33 @@ namespace WebAPI.Controllers
         {
             return Ok(await _userService.GetAllAsync());
         }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh(TokenApiDto tokenApiDto)
+        {
+            var jwtToken = new JwtToken(_userService);
+
+            if (tokenApiDto is null)
+                return BadRequest("Invalid Client Request");
+            string accessToken = tokenApiDto.AccessToken;
+            string refreshToken = tokenApiDto.RefreshToken;
+            var principal = jwtToken.GetPrincipleFromExpiredToken(accessToken);
+            var username = principal.Identity.Name;
+            var user = await _userService.FindAsync(username);
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+                return BadRequest("Invalid Request");
+            var newAccessToken = jwtToken.CreateJwtToken(user);
+            var newRefreshToken = jwtToken.CreateRefreshToken();
+            user.RefreshToken = newRefreshToken;
+            await _userService.UpdateAsync(user);
+            return Ok(new TokenApiDto()
+            {
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken,
+            });
+
+        }
     }
 }
+
+

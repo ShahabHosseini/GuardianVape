@@ -12,5 +12,7 @@ namespace Service.Contracts.Services
         Task AddAsync(UserDto userDto);
         Task<List<UserDto>> GetAllAsync();
         Task<UserDto> GetAsync(UserDto userDto);
+        Task UpdateAsync(UserDto user);
+        Task<UserDto> FindAsync(string userName);
     }
 }
