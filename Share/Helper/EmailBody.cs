@@ -22,7 +22,7 @@ namespace Share.Helper
             <p>You're receiving this email because you requested a password reset for your Let's Program Account.</p>
             
             <p>Please click the button below to choose a new password.</p>
-            <a href=""http://localhost:4200/reset?email={email}@code={emailToken}"" target=""_blank"" style=""background:#0d6efd;padding:10px;border:none;
+            <a href=""http://localhost:4200/reset?email={email}&code={emailToken}"" target=""_blank"" style=""background:#0d6efd;padding:10px;border:none;
             color:white;border-radius:4px;display:block;margin:0 auto;width:50%;text-align:center;text-decoration:none;"">Reset Password</a><br>
             
             <p>Kind Regards,<br><br>

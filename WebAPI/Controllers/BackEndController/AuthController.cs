@@ -139,7 +139,7 @@ namespace WebAPI.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto) 
         {
-            var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
+           // var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
             var user= _userService.GetAllAsync().Result.FirstOrDefault(x => x.Email == resetPasswordDto.Email);
             if (user is null) return NotFound(new
             {
