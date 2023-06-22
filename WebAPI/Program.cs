@@ -9,9 +9,11 @@ using Service.Contracts;
 using Service.Contracts.Inquiry;
 using Service.Contracts.Repositories;
 using Service.Contracts.Services;
+using Service.Contracts.Utility;
 using Service.Contracts.Validation;
 using Service.Implementations.Inquiry;
 using Service.Implementations.Servises;
+using Service.Implementations.Utility;
 using Service.Implementations.Validation;
 using System.Text;
 
@@ -56,6 +58,7 @@ builder.Services.AddTransient<IUserDeleteInquiry, UserDeleteInquiry>();
 builder.Services.AddTransient<IUserValidator,UserValidator>();
 builder.Services.AddTransient<IAddressService, AddressService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IEmailService,EmailService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //Or typeof(Program).Assembly Shahab
 var app = builder.Build();
 
