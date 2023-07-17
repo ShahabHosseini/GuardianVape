@@ -12,9 +12,6 @@ namespace DataAccess.EntityConfiguration
                 builder.Property(e => e.CollectionId).HasColumnName("CollectionID");
                 builder.Property(e => e.ProductId).HasColumnName("ProductID");
 
-                builder.HasOne(d => d.Collection).WithMany(p => p.ProductCollections)
-                    .HasForeignKey(d => d.CollectionId)
-                    .HasConstraintName("FK_ProductCollections_Collection");
 
                 builder.HasOne(d => d.Product).WithMany(p => p.ProductCollections)
                     .HasForeignKey(d => d.ProductId)

@@ -52,6 +52,11 @@ namespace DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("House")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -88,6 +93,11 @@ namespace DataAccess.Migrations
                     b.Property<string>("BodyText")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<byte[]>("Media")
                         .HasMaxLength(50)
                         .HasColumnType("binary(50)")
@@ -111,6 +121,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CategoryGroupID");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -131,6 +146,11 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -149,12 +169,17 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Automated")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<byte[]>("Media")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("MetaDescription")
                         .HasMaxLength(500)
@@ -164,38 +189,93 @@ namespace DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int")
-                        .HasColumnName("ParentID");
+                    b.Property<int>("SearchEnginListingId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("imageId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("SearchEnginListingId");
+
+                    b.HasIndex("imageId");
 
                     b.ToTable("Collection", (string)null);
+                });
+
+            modelBuilder.Entity("Model.Entities.Condition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AllCondition")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("AnyCondition")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("CollectionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollectionId");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Condition");
                 });
 
             modelBuilder.Entity("Model.Entities.ConditionRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ID");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
+                    b.Property<string>("MyProperty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ConditionRole", (string)null);
+                    b.ToTable("ConditionRole");
                 });
 
             modelBuilder.Entity("Model.Entities.ConditionRoleType", b =>
@@ -222,6 +302,11 @@ namespace DataAccess.Migrations
                     b.Property<int?>("ConditionTypeId")
                         .HasColumnType("int")
                         .HasColumnName("ConditionTypeID");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<int?>("ProductTypeId")
                         .HasColumnType("int")
@@ -263,7 +348,13 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -284,6 +375,11 @@ namespace DataAccess.Migrations
                     b.Property<string>("AreaCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("Title")
                         .HasMaxLength(50)
@@ -322,6 +418,11 @@ namespace DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("Language")
                         .HasMaxLength(10)
                         .HasColumnType("nchar(10)")
@@ -348,6 +449,36 @@ namespace DataAccess.Migrations
                     b.ToTable("Customer", (string)null);
                 });
 
+            modelBuilder.Entity("Model.Entities.GvImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
+                    b.Property<string>("ImageType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GvImage");
+                });
+
             modelBuilder.Entity("Model.Entities.Inventory", b =>
                 {
                     b.Property<int>("Id")
@@ -363,6 +494,11 @@ namespace DataAccess.Migrations
 
                     b.Property<bool?>("ContinueSellingOutOfStock")
                         .HasColumnType("bit");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
@@ -399,6 +535,11 @@ namespace DataAccess.Migrations
                     b.Property<int?>("CollectionId")
                         .HasColumnType("int")
                         .HasColumnName("CollectionID");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
@@ -454,6 +595,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("FulfillmentStatusID");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<int?>("Items")
                         .HasColumnType("int");
 
@@ -493,6 +639,11 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<int?>("OrderId")
                         .HasColumnType("int")
                         .HasColumnName("OrderID");
@@ -524,6 +675,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("nchar(10)")
                         .IsFixedLength();
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
@@ -549,6 +705,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CategoryID");
 
+                    b.Property<int?>("CollectionId")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("CompareatPrice")
                         .HasColumnType("decimal(18, 0)");
 
@@ -558,6 +717,11 @@ namespace DataAccess.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 0)");
@@ -593,6 +757,8 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("CollectionId");
+
                     b.HasIndex("ProductTypeId");
 
                     b.HasIndex("SearchEnginListingId");
@@ -617,6 +783,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CollectionID");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("ProductID");
@@ -638,6 +809,11 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
@@ -665,6 +841,11 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -682,6 +863,11 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
@@ -717,6 +903,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CostumerID");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<int?>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("ProductID");
@@ -738,6 +929,11 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("MetaDescription")
                         .HasMaxLength(320)
@@ -772,6 +968,11 @@ namespace DataAccess.Migrations
                     b.Property<int?>("Committed")
                         .HasColumnType("int");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<int?>("InventoryId")
                         .HasColumnType("int")
                         .HasColumnName("InventoryID");
@@ -794,6 +995,11 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int")
@@ -827,6 +1033,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CustomerID");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("Header")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -859,6 +1070,11 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -886,6 +1102,11 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -938,6 +1159,11 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ColorID");
 
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
+
                     b.Property<byte[]>("Image")
                         .HasMaxLength(50)
                         .HasColumnType("binary(50)")
@@ -963,6 +1189,11 @@ namespace DataAccess.Migrations
                         .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.Property<string>("Title")
                         .HasMaxLength(50)
@@ -995,12 +1226,44 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Model.Entities.Collection", b =>
                 {
-                    b.HasOne("Model.Entities.Collection", "Parent")
-                        .WithMany("InverseParent")
-                        .HasForeignKey("ParentId")
-                        .HasConstraintName("FK_Collection_Collection1");
+                    b.HasOne("Model.Entities.SearchEnginListing", "SearchEnginListing")
+                        .WithMany()
+                        .HasForeignKey("SearchEnginListingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Parent");
+                    b.HasOne("Model.Entities.GvImage", "image")
+                        .WithMany()
+                        .HasForeignKey("imageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SearchEnginListing");
+
+                    b.Navigation("image");
+                });
+
+            modelBuilder.Entity("Model.Entities.Condition", b =>
+                {
+                    b.HasOne("Model.Entities.Collection", null)
+                        .WithMany("ConditionRoleTypes")
+                        .HasForeignKey("CollectionId");
+
+                    b.HasOne("Model.Entities.ConditionRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Model.Entities.ConditionType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Model.Entities.ConditionRoleType", b =>
@@ -1011,19 +1274,16 @@ namespace DataAccess.Migrations
                         .HasConstraintName("FK_ConditionRoleType_Category");
 
                     b.HasOne("Model.Entities.Collection", "Collection")
-                        .WithMany("ConditionRoleTypes")
-                        .HasForeignKey("CollectionId")
-                        .HasConstraintName("FK_ConditionRoleType_Collection");
+                        .WithMany()
+                        .HasForeignKey("CollectionId");
 
-                    b.HasOne("Model.Entities.ConditionRole", "ConditionRole")
-                        .WithMany("ConditionRoleTypes")
-                        .HasForeignKey("ConditionRoleId")
-                        .HasConstraintName("FK_ConditionRoleType_ConditionRole");
+                    b.HasOne("Model.Entities.ConditionType", "ConditionRole")
+                        .WithMany()
+                        .HasForeignKey("ConditionRoleId");
 
                     b.HasOne("Model.Entities.ConditionType", "ConditionType")
-                        .WithMany("ConditionRoleTypes")
-                        .HasForeignKey("ConditionTypeId")
-                        .HasConstraintName("FK_ConditionRoleType_ConditionType");
+                        .WithMany()
+                        .HasForeignKey("ConditionTypeId");
 
                     b.HasOne("Model.Entities.ProductType", "ProductType")
                         .WithMany("ConditionRoleTypes")
@@ -1086,9 +1346,8 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Model.Entities.Medium", b =>
                 {
                     b.HasOne("Model.Entities.Collection", "Collection")
-                        .WithMany("MediaNavigation")
-                        .HasForeignKey("CollectionId")
-                        .HasConstraintName("FK_Media_Collection");
+                        .WithMany()
+                        .HasForeignKey("CollectionId");
 
                     b.HasOne("Model.Entities.Product", "Product")
                         .WithMany("Media")
@@ -1142,15 +1401,18 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Product_Category");
 
+                    b.HasOne("Model.Entities.Collection", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CollectionId");
+
                     b.HasOne("Model.Entities.ProductType", "ProductType")
                         .WithMany("Products")
                         .HasForeignKey("ProductTypeId")
                         .HasConstraintName("FK_Product_ProductType");
 
                     b.HasOne("Model.Entities.SearchEnginListing", "SearchEnginListing")
-                        .WithMany("Products")
-                        .HasForeignKey("SearchEnginListingId")
-                        .HasConstraintName("FK_Product_SearchEnginListing");
+                        .WithMany()
+                        .HasForeignKey("SearchEnginListingId");
 
                     b.HasOne("Model.Entities.Unit", "Unit")
                         .WithMany("Products")
@@ -1178,9 +1440,8 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Model.Entities.ProductCollection", b =>
                 {
                     b.HasOne("Model.Entities.Collection", "Collection")
-                        .WithMany("ProductCollections")
-                        .HasForeignKey("CollectionId")
-                        .HasConstraintName("FK_ProductCollections_Collection");
+                        .WithMany()
+                        .HasForeignKey("CollectionId");
 
                     b.HasOne("Model.Entities.Product", "Product")
                         .WithMany("ProductCollections")
@@ -1315,21 +1576,7 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("ConditionRoleTypes");
 
-                    b.Navigation("InverseParent");
-
-                    b.Navigation("MediaNavigation");
-
-                    b.Navigation("ProductCollections");
-                });
-
-            modelBuilder.Entity("Model.Entities.ConditionRole", b =>
-                {
-                    b.Navigation("ConditionRoleTypes");
-                });
-
-            modelBuilder.Entity("Model.Entities.ConditionType", b =>
-                {
-                    b.Navigation("ConditionRoleTypes");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Model.Entities.Country", b =>
@@ -1387,11 +1634,6 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("ConditionRoleTypes");
 
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Model.Entities.SearchEnginListing", b =>
-                {
                     b.Navigation("Products");
                 });
 

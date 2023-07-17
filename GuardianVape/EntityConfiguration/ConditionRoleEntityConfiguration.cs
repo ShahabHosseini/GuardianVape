@@ -5,9 +5,9 @@ using Model.Entities;
 
 namespace DataAccess.EntityConfiguration
 {
-    internal class ConditionRoleEntityConfiguration : IEntityTypeConfiguration<ConditionRole>
+    internal class ConditionRoleEntityConfiguration : IEntityTypeConfiguration<ConditionType>
     {
-        public void Configure(EntityTypeBuilder<ConditionRole> builder)
+        public void Configure(EntityTypeBuilder<ConditionType> builder)
         {
             builder.ToTable("ConditionRole");
 

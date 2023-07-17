@@ -1,6 +1,4 @@
 ﻿using Model.Base;
-using System;
-using System.Collections.Generic;
 
 namespace Model.Entities;
 public partial class Collection : EntityBase
@@ -9,21 +7,15 @@ public partial class Collection : EntityBase
 
     public string? Description { get; set; }
 
-    public int? ParentId { get; set; }
-
     public string? PageTitle { get; set; }
 
     public string? MetaDescription { get; set; }
 
-    public byte[]? Media { get; set; }
+    public GvImage image { get; set; }=new GvImage();
+    public bool Automated { get; set; } = true;
 
-    public virtual ICollection<ConditionRoleType> ConditionRoleTypes { get; set; } = new List<ConditionRoleType>();
+    public virtual ICollection<Condition> ConditionRoleTypes { get; set; } = new List<Condition>();
 
-    public virtual ICollection<Collection> InverseParent { get; set; } = new List<Collection>();
-
-    public virtual ICollection<Medium> MediaNavigation { get; set; } = new List<Medium>();
-
-    public virtual Collection? Parent { get; set; }
-
-    public virtual ICollection<ProductCollection> ProductCollections { get; set; } = new List<ProductCollection>();
+    public ICollection<Product> Products { get; set; } = new List<Product>();
+    public SearchEnginListing SearchEnginListing { get; set; } = new SearchEnginListing();
 }

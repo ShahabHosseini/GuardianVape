@@ -11,6 +11,4 @@ public partial class SearchEnginListing : EntityBase
     public string? MetaDescription { get; set; }
 
     public string? Urlhandle { get; set; }
-
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

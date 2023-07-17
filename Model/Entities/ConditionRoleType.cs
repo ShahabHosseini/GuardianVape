@@ -23,7 +23,7 @@ public partial class ConditionRoleType : EntityBase
 
     public virtual Collection? Collection { get; set; }
 
-    public virtual ConditionRole? ConditionRole { get; set; }
+    public virtual ConditionType? ConditionRole { get; set; }
 
     public virtual ConditionType? ConditionType { get; set; }
 

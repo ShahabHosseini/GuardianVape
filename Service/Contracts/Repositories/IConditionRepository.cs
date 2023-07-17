@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Service.Contracts.Repositories
 {
     //It's for ConditionRole Condition Type and ConditionRoleType
-    public interface IConditionRepository : IGenericRepository<ConditionRole>
+    public interface IConditionRepository : IGenericRepository<ConditionType>
     {
         Task<ICollection<ConditionType>>  GetAllConditionTypeAsync();
     }

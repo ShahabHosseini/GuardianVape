@@ -5,7 +5,7 @@ using Service.Contracts.Repositories;
 
 namespace DataAccess.Implementations.Repositories
 {
-    public class ConditionRepository:GenericRepository<ConditionRole>, IConditionRepository
+    public class ConditionRepository:GenericRepository<ConditionType>, IConditionRepository
     {
         private readonly GVDbContext _context;
             public ConditionRepository(GVDbContext context):base(context) 

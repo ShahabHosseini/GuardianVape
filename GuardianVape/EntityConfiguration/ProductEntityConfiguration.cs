@@ -31,9 +31,7 @@ namespace DataAccess.EntityConfiguration
                     .HasForeignKey(d => d.ProductTypeId)
                     .HasConstraintName("FK_Product_ProductType");
 
-                builder.HasOne(d => d.SearchEnginListing).WithMany(p => p.Products)
-                    .HasForeignKey(d => d.SearchEnginListingId)
-                    .HasConstraintName("FK_Product_SearchEnginListing");
+
 
                 builder.HasOne(d => d.Unit).WithMany(p => p.Products)
                     .HasForeignKey(d => d.UnitId)

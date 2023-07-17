@@ -14,12 +14,7 @@ namespace DataAccess.EntityConfiguration
             builder.Property(e => e.Description).HasMaxLength(500);
             builder.Property(e => e.MetaDescription).HasMaxLength(500);
             builder.Property(e => e.PageTitle).HasMaxLength(50);
-            builder.Property(e => e.ParentId).HasColumnName("ParentID");
             builder.Property(e => e.Title).HasMaxLength(50);
-
-            builder.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
-                    .HasForeignKey(d => d.ParentId)
-                    .HasConstraintName("FK_Collection_Collection1");
         }
     }
 }

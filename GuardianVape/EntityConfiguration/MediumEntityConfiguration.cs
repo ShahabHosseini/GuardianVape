@@ -18,9 +18,6 @@ namespace DataAccess.EntityConfiguration
                     .HasMaxLength(50)
                     .IsFixedLength();
 
-                builder.HasOne(d => d.Collection).WithMany(p => p.MediaNavigation)
-                    .HasForeignKey(d => d.CollectionId)
-                    .HasConstraintName("FK_Media_Collection");
 
                 builder.HasOne(d => d.Product).WithMany(p => p.Media)
                     .HasForeignKey(d => d.ProductId)

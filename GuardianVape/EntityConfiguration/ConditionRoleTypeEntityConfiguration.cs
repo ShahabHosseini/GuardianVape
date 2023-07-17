@@ -24,17 +24,6 @@ namespace DataAccess.EntityConfiguration
                 .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK_ConditionRoleType_Category");
 
-            builder.HasOne(d => d.Collection).WithMany(p => p.ConditionRoleTypes)
-                .HasForeignKey(d => d.CollectionId)
-                .HasConstraintName("FK_ConditionRoleType_Collection");
-
-            builder.HasOne(d => d.ConditionRole).WithMany(p => p.ConditionRoleTypes)
-                .HasForeignKey(d => d.ConditionRoleId)
-                .HasConstraintName("FK_ConditionRoleType_ConditionRole");
-
-            builder.HasOne(d => d.ConditionType).WithMany(p => p.ConditionRoleTypes)
-                .HasForeignKey(d => d.ConditionTypeId)
-                .HasConstraintName("FK_ConditionRoleType_ConditionType");
 
             builder.HasOne(d => d.ProductType).WithMany(p => p.ConditionRoleTypes)
                 .HasForeignKey(d => d.ProductTypeId)

@@ -6,7 +6,6 @@ namespace Model.Entities;
 
 public partial class ConditionType : EntityBase
 {
-    public string? Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
-    public virtual ICollection<ConditionRoleType> ConditionRoleTypes { get; set; } = new List<ConditionRoleType>();
 }

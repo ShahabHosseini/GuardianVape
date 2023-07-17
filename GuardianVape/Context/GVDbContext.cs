@@ -24,7 +24,7 @@ public partial class GVDbContext : DbContext
 
     public virtual DbSet<Collection> Collections { get; set; }
 
-    public virtual DbSet<ConditionRole> ConditionRoles { get; set; }
+    public virtual DbSet<ConditionType> ConditionRoles { get; set; }
 
     public virtual DbSet<ConditionRoleType> ConditionRoleTypes { get; set; }
 
