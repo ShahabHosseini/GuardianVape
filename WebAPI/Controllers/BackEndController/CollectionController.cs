@@ -43,37 +43,15 @@ namespace WebAPI.Controllers
             return Ok(await _collectionService.GetAllConditionTypeAsync());
         }
 
-        //[HttpPost("register")]
-        //public async Task<IActionResult> RegisterUser([FromBody] UserDto userDto)
-        //{
-          
-        //}
+        [HttpPost("save-collection")]
+        public async Task<IActionResult> SaveCollection(CollectionDto collectionDto)
+        {
 
-        //[Authorize]
-        //[HttpGet]
-        //public async Task<ActionResult<UserDto>> GetResultAsync()
-        //{
-        //    return Ok(await _userService.GetAllAsync());
-        //}
+            await _collectionService.Save(collectionDto);
+            return Ok();
+        }
 
-        //[HttpPost("refresh")]
-        //public async Task<IActionResult> Refresh(TokenApiDto tokenApiDto)
-        //{
-          
 
-        //}
-
-        //[HttpPost("send-reset-email/{email}")]
-        //public async Task<IActionResult> SendEmail(string email)
-        //{
-            
-        //}
-
-        //[HttpPost("reset-password")]
-        //public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto) 
-        //{
-          
-        //}
 
     }
 }

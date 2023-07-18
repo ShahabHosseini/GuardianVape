@@ -15,7 +15,6 @@ namespace WebAPI.Controllers
     public class FileController : ControllerBase
     {
         private readonly ILogger<AuthController> _logger;
-        private ICollectionService _collectionService;
 
         public FileController(ILogger<AuthController> logger)
         {

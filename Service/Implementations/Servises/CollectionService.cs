@@ -35,5 +35,14 @@ namespace Service.Implementations.Servises
                 return Mapper.Map<List<IdTitleDto>>(conditionTypes);
             }
         }
+
+        public async Task Save(CollectionDto collectionDto)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                var data = Mapper.Map<Collection>(collectionDto);
+               var res= await unitOfWork.Collection.AddAsync(data);
+            }
+        }
     }
 }

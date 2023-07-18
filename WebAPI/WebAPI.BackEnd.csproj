@@ -7,6 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Image\Collection\2222.jpg" />
+    <None Remove="Assets\Image\Collection\229098.png" />
+    <None Remove="Assets\Image\Collection\25231.png" />
+    <None Remove="Assets\Image\Collection\2991148.png" />
+    <None Remove="Assets\Image\Collection\600 Puff Disposable Vape copy.jpg" />
+    <None Remove="Assets\Image\Collection\COIL copy.jpg" />
+    <None Remove="Assets\Image\Collection\default-no-image.png" />
+    <None Remove="Assets\Image\Collection\DISPOSABLE KITS copy.jpg" />
+    <None Remove="Assets\Image\Collection\download.png" />
+    <None Remove="Assets\Image\Collection\E LIQUID copy.jpg" />
+    <None Remove="Assets\Image\Collection\E-Liquids Offer New Version 2.jpg" />
+    <None Remove="Assets\Image\Collection\E-Liquids Offer.jpg" />
+    <None Remove="Assets\Image\Collection\find and take it copy %282%29.jpg" />
+    <None Remove="Assets\Image\Collection\G.V-LOGO.png" />
+    <None Remove="Assets\Image\Collection\PODS copy.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />

@@ -11,6 +11,6 @@ namespace Share.DTO.Base
     {
         public int Id { get; set; }
         [MaxLength(36)]
-        public string GUID { get; set; } = string.Empty;
+        public string Guid { get; set; } = string.Empty;
     }
 }
