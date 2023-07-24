@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Service.Contracts.Repositories
 {
-    public interface IMediumRepository : IGenericRepository<Medium>
+    public interface IMediumRepository : IGenericRepository<Image>
     {
     }
 }

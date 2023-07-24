@@ -169,8 +169,8 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Automated")
-                        .HasColumnType("bit");
+                    b.Property<int>("CollectionTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -181,15 +181,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(36)
                         .HasColumnType("nvarchar(36)");
 
-                    b.Property<string>("MetaDescription")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("PageTitle")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("SearchEnginListingId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -197,85 +189,83 @@ namespace DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("imageId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollectionTypeId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("Collection", (string)null);
+                });
+
+            modelBuilder.Entity("Model.Entities.CollectionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("CollType")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ConditionType")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("GUID")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("nvarchar(36)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SearchEnginListingId");
-
-                    b.HasIndex("imageId");
-
-                    b.ToTable("Collection", (string)null);
+                    b.ToTable("CollectionType", (string)null);
                 });
 
             modelBuilder.Entity("Model.Entities.Condition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("AllCondition")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("AnyCondition")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("CollectionId")
+                    b.Property<int>("CollectionTypeId")
                         .HasColumnType("int");
+
+                    b.Property<int>("ConditionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ConditionTypeId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EqualType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GUID")
                         .IsRequired()
                         .HasMaxLength(36)
                         .HasColumnType("nvarchar(36)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Value")
+                    b.Property<string>("Result")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CollectionId");
+                    b.HasIndex("CollectionTypeId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("ConditionTypeId");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("ConditionTypeId1");
 
-                    b.ToTable("Condition");
-                });
-
-            modelBuilder.Entity("Model.Entities.ConditionRole", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GUID")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<string>("MyProperty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ConditionRole");
+                    b.ToTable("Condition", (string)null);
                 });
 
             modelBuilder.Entity("Model.Entities.ConditionRoleType", b =>
@@ -449,15 +439,24 @@ namespace DataAccess.Migrations
                     b.ToTable("Customer", (string)null);
                 });
 
-            modelBuilder.Entity("Model.Entities.GvImage", b =>
+            modelBuilder.Entity("Model.Entities.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("FileName")
+                    b.Property<string>("Alt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Caption")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -466,17 +465,27 @@ namespace DataAccess.Migrations
                         .HasMaxLength(36)
                         .HasColumnType("nvarchar(36)");
 
-                    b.Property<string>("ImageType")
+                    b.Property<DateTime>("Modify")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Path")
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("url");
 
                     b.HasKey("Id");
 
-                    b.ToTable("GvImage");
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("Model.Entities.Inventory", b =>
@@ -521,47 +530,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Inventory", (string)null);
-                });
-
-            modelBuilder.Entity("Model.Entities.Medium", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CollectionId")
-                        .HasColumnType("int")
-                        .HasColumnName("CollectionID");
-
-                    b.Property<string>("GUID")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
-
-                    b.Property<string>("Url")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("URL");
-
-                    b.Property<byte[]>("Value")
-                        .HasMaxLength(50)
-                        .HasColumnType("binary(50)")
-                        .IsFixedLength();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CollectionId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("Model.Entities.Order", b =>
@@ -705,9 +673,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CategoryID");
 
-                    b.Property<int?>("CollectionId")
-                        .HasColumnType("int");
-
                     b.Property<decimal?>("CompareatPrice")
                         .HasColumnType("decimal(18, 0)");
 
@@ -756,8 +721,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CollectionId");
 
                     b.HasIndex("ProductTypeId");
 
@@ -1226,44 +1189,44 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Model.Entities.Collection", b =>
                 {
-                    b.HasOne("Model.Entities.SearchEnginListing", "SearchEnginListing")
+                    b.HasOne("Model.Entities.CollectionType", "CollectionType")
                         .WithMany()
-                        .HasForeignKey("SearchEnginListingId")
+                        .HasForeignKey("CollectionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Model.Entities.GvImage", "image")
+                    b.HasOne("Model.Entities.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("imageId")
+                        .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SearchEnginListing");
+                    b.Navigation("CollectionType");
 
-                    b.Navigation("image");
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Model.Entities.Condition", b =>
                 {
-                    b.HasOne("Model.Entities.Collection", null)
-                        .WithMany("ConditionRoleTypes")
-                        .HasForeignKey("CollectionId");
-
-                    b.HasOne("Model.Entities.ConditionRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
+                    b.HasOne("Model.Entities.CollectionType", "CollectionType")
+                        .WithMany("Conditions")
+                        .HasForeignKey("CollectionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Model.Entities.ConditionType", "Type")
+                    b.HasOne("Model.Entities.ConditionType", "ConditionType")
                         .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("ConditionTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.HasOne("Model.Entities.ConditionType", null)
+                        .WithMany("Conditions")
+                        .HasForeignKey("ConditionTypeId1");
 
-                    b.Navigation("Type");
+                    b.Navigation("CollectionType");
+
+                    b.Navigation("ConditionType");
                 });
 
             modelBuilder.Entity("Model.Entities.ConditionRoleType", b =>
@@ -1332,6 +1295,16 @@ namespace DataAccess.Migrations
                     b.Navigation("Phone");
                 });
 
+            modelBuilder.Entity("Model.Entities.Image", b =>
+                {
+                    b.HasOne("Model.Entities.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Model.Entities.Inventory", b =>
                 {
                     b.HasOne("Model.Entities.Product", "Product")
@@ -1339,22 +1312,6 @@ namespace DataAccess.Migrations
                         .HasForeignKey("ProductId")
                         .IsRequired()
                         .HasConstraintName("FK_Inventory_Product");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Model.Entities.Medium", b =>
-                {
-                    b.HasOne("Model.Entities.Collection", "Collection")
-                        .WithMany()
-                        .HasForeignKey("CollectionId");
-
-                    b.HasOne("Model.Entities.Product", "Product")
-                        .WithMany("Media")
-                        .HasForeignKey("ProductId")
-                        .HasConstraintName("FK_Media_Product");
-
-                    b.Navigation("Collection");
 
                     b.Navigation("Product");
                 });
@@ -1400,10 +1357,6 @@ namespace DataAccess.Migrations
                         .HasForeignKey("CategoryId")
                         .IsRequired()
                         .HasConstraintName("FK_Product_Category");
-
-                    b.HasOne("Model.Entities.Collection", null)
-                        .WithMany("Products")
-                        .HasForeignKey("CollectionId");
 
                     b.HasOne("Model.Entities.ProductType", "ProductType")
                         .WithMany("Products")
@@ -1572,11 +1525,14 @@ namespace DataAccess.Migrations
                     b.Navigation("Categories");
                 });
 
-            modelBuilder.Entity("Model.Entities.Collection", b =>
+            modelBuilder.Entity("Model.Entities.CollectionType", b =>
                 {
-                    b.Navigation("ConditionRoleTypes");
+                    b.Navigation("Conditions");
+                });
 
-                    b.Navigation("Products");
+            modelBuilder.Entity("Model.Entities.ConditionType", b =>
+                {
+                    b.Navigation("Conditions");
                 });
 
             modelBuilder.Entity("Model.Entities.Country", b =>
@@ -1615,9 +1571,9 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Model.Entities.Product", b =>
                 {
-                    b.Navigation("Inventories");
+                    b.Navigation("Images");
 
-                    b.Navigation("Media");
+                    b.Navigation("Inventories");
 
                     b.Navigation("OrderProducts");
 

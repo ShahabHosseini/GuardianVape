@@ -9,7 +9,7 @@ namespace Share.DTO
     public class CollectionTypeDto
     {
         public IList<ConditionDto> Conditions { get; set; }
-        //public bool CollectionType { get; set; } = true;
-        //public bool ConditionType { get; set; } = true;
+        public bool CollectionType { get; set; } = true;
+        public bool ConditionType { get; set; } = true;
     }
 }

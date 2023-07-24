@@ -26,7 +26,7 @@ public partial class GVDbContext : DbContext
 
     public virtual DbSet<ConditionType> ConditionRoles { get; set; }
 
-    public virtual DbSet<ConditionRoleType> ConditionRoleTypes { get; set; }
+    public virtual DbSet<CollectionType> CollectionTypes { get; set; }
 
     public virtual DbSet<ConditionType> ConditionTypes { get; set; }
 
@@ -36,7 +36,7 @@ public partial class GVDbContext : DbContext
 
     public virtual DbSet<Inventory> Inventories { get; set; }
 
-    public virtual DbSet<Medium> Media { get; set; }
+    public virtual DbSet<Image> Image { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 

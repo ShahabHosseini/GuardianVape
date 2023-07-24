@@ -56,6 +56,7 @@
   <ItemGroup>
     <Folder Include="Assets\Image\Collection\" />
     <Folder Include="Controllers\FrontEndController\" />
+    <Folder Include="wwwroot\Image\Collection\" />
   </ItemGroup>
 
 </Project>

@@ -42,6 +42,11 @@ namespace DataAccess.EntityConfiguration
                     .HasForeignKey(d => d.VendorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Product_Vendor");
+
+            builder.HasMany(p => p.Images)
+               .WithOne(i => i.Product)
+               .HasForeignKey(i => i.ProductId)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

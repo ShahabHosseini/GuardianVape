@@ -4,24 +4,19 @@ using Model.Entities;
 
 namespace DataAccess.EntityConfiguration
 {
-    internal class MediumEntityConfiguration : IEntityTypeConfiguration<Medium>
+    internal class MediumEntityConfiguration : IEntityTypeConfiguration<Image>
     {
-        public void Configure(EntityTypeBuilder<Medium> builder)
+        public void Configure(EntityTypeBuilder<Image> builder)
         {
                 builder.Property(e => e.Id).HasColumnName("ID");
-                builder.Property(e => e.CollectionId).HasColumnName("CollectionID");
-                builder.Property(e => e.ProductId).HasColumnName("ProductID");
                 builder.Property(e => e.Url)
-                    .HasMaxLength(50)
-                    .HasColumnName("URL");
-                builder.Property(e => e.Value)
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                    .HasMaxLength(500)
+                    .HasColumnName("url");
 
-
-                builder.HasOne(d => d.Product).WithMany(p => p.Media)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_Media_Product");
+            builder.HasOne(i => i.Product)
+                .WithMany(p => p.Images)
+                .HasForeignKey(i => i.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

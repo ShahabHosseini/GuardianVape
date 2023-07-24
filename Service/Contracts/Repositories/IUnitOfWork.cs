@@ -18,5 +18,6 @@
         IUserRepository User { get; }
         IVariantRepository Variant { get; }
         IVendorRepository Vendor { get; }
+        IFileRepository File { get; }
     }
 }

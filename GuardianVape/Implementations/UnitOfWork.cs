@@ -25,6 +25,7 @@ namespace DataAccess.Implementations
             User=new UserRepository(_context);
             Variant =new VariantRepository(_context);
             Vendor=new VendorRepository(_context);
+            File=new FileRepository(_context);
         }
 
         public IAddressRepository Address { get; private set; }
@@ -56,6 +57,9 @@ namespace DataAccess.Implementations
         public IVariantRepository Variant { get; private set; }
 
         public IVendorRepository Vendor { get; private set; }
+
+        public IFileRepository File { get; private set; }
+
 
         public async Task Commit()
         {

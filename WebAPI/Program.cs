@@ -60,6 +60,7 @@ builder.Services.AddTransient<IAddressService, AddressService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IEmailService,EmailService>();
 builder.Services.AddTransient<ICollectionService, CollectionService>();
+builder.Services.AddTransient<IFileService, FileService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //Or typeof(Program).Assembly Shahab
 var app = builder.Build();
@@ -71,8 +72,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-
+app.UseStaticFiles();
+app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("mypolicy");
 app.UseAuthentication();

@@ -40,9 +40,33 @@ namespace Service.Implementations.Servises
         {
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
-                var data = Mapper.Map<Collection>(collectionDto);
-               var res= await unitOfWork.Collection.AddAsync(data);
+                var collection = new Collection
+                {
+                    Title = collectionDto.TitleDescription.Title,
+                    Description = collectionDto.TitleDescription.Description,
+                    CollectionType = new CollectionType
+                    {
+                        Conditions = collectionDto.CollectionType.Conditions.Select(c => new Condition
+                        {
+                            ConditionType = new ConditionType
+                            {
+                                Id = c.ConditionType.Id,
+                                GUID = c.ConditionType.Guid,
+                                Title = c.ConditionType.Title
+                            },
+                            EqualType = c.EqualType,
+                            Result = c.Result,
+                            //Title = c.Title,
+                            AllCondition = c.AllCondition,
+                        }).ToList(),
+                        CollType = collectionDto.CollectionType.CollectionType,
+                        ConditionType = collectionDto.CollectionType.ConditionType
+                    }
+                };
+
+                var res = await unitOfWork.Collection.AddAsync(collection);
             }
         }
+
     }
 }

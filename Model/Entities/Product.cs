@@ -37,7 +37,7 @@ public partial class Product : EntityBase
 
     public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
 
-    public virtual ICollection<Medium> Media { get; set; } = new List<Medium>();
+    public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
     public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 
