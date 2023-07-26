@@ -1,15 +1,7 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Model.Entities;
-using Service.Contracts;
 using Service.Contracts.Services;
-using Microsoft.AspNetCore.Http;
 
 using Share.DTO;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -67,36 +59,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        //[HttpPost("upload-image")]
-        //public async Task<IActionResult> UploadImage(ImageDto image)
-        //{
-        //    bool Results = false;
-        //    try
-        //    {
-        //        //foreach (var image in images)
-        //        //{
-        //            string fileName = image.Name;
-        //            string filePath = GetFilePath(fileName);
-        //            if (!System.IO.Directory.Exists(filePath))
-        //            {
-        //                System.IO.Directory.CreateDirectory(filePath);
-        //            }
-        //            string imagePath = Path.Combine(filePath, fileName);
-        //            if (System.IO.File.Exists(imagePath))
-        //            {
-        //                System.IO.File.Delete(imagePath);
-        //            }
-        //            await System.IO.File.WriteAllBytesAsync(imagePath, image.File);
-        //            Results = true;
-        //        //}
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Error fetching images");
-        //        return StatusCode(500, "Error fetching images");
-        //    }
-        //    return Ok(Results);
-        //}
+        
         [HttpPost("upload-image")]
         public async Task<IActionResult> UploadImage([FromForm] object obj)
         {
@@ -151,52 +114,64 @@ namespace WebAPI.Controllers
         [HttpGet("get-image-all")]
         public IActionResult GetImageAll()
         {
-            // Combine the web root path with the image collection path
-            string imageCollectionPath = Path.Combine(_webHostEnvironment.WebRootPath, "Image", "Collection");
+
+            var imageFiles = _fileService.GetAllAsync().Result;
             string HostUrl = "https://localhost:7278/";
 
-            if (!Directory.Exists(imageCollectionPath))
+            //// Construct the complete URL for each image file and create ImageDto objects
+            foreach (var imageFile in imageFiles)
             {
-                return NotFound("Image collection directory not found.");
-            }
-
-            // Get all image files from the specified directory
-            string[] imageFiles = Directory.GetFiles(imageCollectionPath, "*.jpg")
-                                           .Concat(Directory.GetFiles(imageCollectionPath, "*.png"))
-                                           .ToArray();
-
-            // Create a list to store the complete image URLs as ImageDto objects
-            List<ImageDto> imageDtoList = new List<ImageDto>();
-
-            // Construct the complete URL for each image file and create ImageDto objects
-            foreach (string imageFile in imageFiles)
-            {
-                // Get the relative path of the image file from the web root
-                string relativePath = imageFile.Replace(_webHostEnvironment.WebRootPath, "").Replace("\\", "/");
-
-                // Combine the relative path with the host URL to get the complete image URL
+                string relativePath = imageFile.Url.Replace(_webHostEnvironment.WebRootPath, "").Replace("\\", "/");
                 string imageUrl = HostUrl.TrimEnd('/') + relativePath;
-                string imageName = Path.GetFileNameWithoutExtension(imageFile);
-
-                // Create the ImageDto object and add it to the list
-                ImageDto imageDto = new ImageDto
-                {
-                    Url = imageUrl,
-                    Name = imageName,
-                    Alt = string.Empty, // You can set other properties if needed
-                    Description = string.Empty,
-                    Caption = string.Empty,
-                    Guid = string.Empty,
-                    //File = null, // File property is not included in the response
-                };
-
-                imageDtoList.Add(imageDto);
+                imageFile.Url = imageUrl;
             }
 
             // Return the list of complete ImageDto objects
-            return Ok(imageDtoList);
+            return Ok(imageFiles);
         }
 
+        [HttpPost("remove-image")]
+        public async Task<IActionResult> RemoveImages(List<ImageDto> imageDtos)
+        {
+            try
+            {
+                foreach (var source in imageDtos)
+                {
+                    string fileName = source.Name;
+                    string filePath = GetFilePath(fileName);
+                    string imagePath = filePath + "\\" + fileName;
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                    await _fileService.RemoveImage(source);
+                }
+            }
+            catch (Exception ex)
+            {
+                Ok(ex.Message);
+            }
+         
+                return Ok(imageDtos);
+            
+        }
+
+        [HttpPost("update-image")]
+        public async Task<IActionResult>UpdateImage(ImageDto imageDto)
+        {
+            try
+            {
+               await _fileService.UpdateImage(imageDto);
+                
+            }
+            catch (Exception ex)
+            {
+                Ok(ex.Message);
+            }
+
+            return Ok(imageDto);
+
+        }
 
         [NonAction]
         private string GetImageByCode(string code)

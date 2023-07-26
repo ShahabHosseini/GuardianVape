@@ -11,10 +11,12 @@ using Service.Contracts.Repositories;
 using Service.Contracts.Services;
 using Service.Contracts.Utility;
 using Service.Contracts.Validation;
+using Service.Contracts.Validators;
 using Service.Implementations.Inquiry;
 using Service.Implementations.Servises;
 using Service.Implementations.Utility;
 using Service.Implementations.Validation;
+using Service.Implementations.Validators;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,6 +58,8 @@ Options.UseSqlServer(builder.Configuration.GetConnectionString("GV_DBConnection"
 builder.Services.AddTransient<IUnitOfWorkFactory, UnitOfWorkFactory>();
 builder.Services.AddTransient<IUserDeleteInquiry, UserDeleteInquiry>();
 builder.Services.AddTransient<IUserValidator,UserValidator>();
+builder.Services.AddTransient<IFileValidator, FileValidator>();
+
 builder.Services.AddTransient<IAddressService, AddressService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IEmailService,EmailService>();
