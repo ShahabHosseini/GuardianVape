@@ -17,5 +17,8 @@ namespace Share.DTO
         public string Caption { get; set; } = string.Empty;
         public string Guid { get; set; } = string.Empty;
         public DateTime UploadDate { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+
     }
 }

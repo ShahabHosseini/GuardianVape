@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts.Services;
-
 using Share.DTO;
+using SixLabors.ImageSharp; // Use SixLabors.ImageSharp instead of System.Drawing
+using SixLabors.ImageSharp.Processing; // Import the ImageSharp.Processing namespace
 
 namespace WebAPI.Controllers
 {
@@ -60,57 +61,84 @@ namespace WebAPI.Controllers
         }
 
         
-        [HttpPost("upload-image")]
-        public async Task<IActionResult> UploadImage([FromForm] object obj)
+
+[HttpPost("upload-image")]
+    public async Task<IActionResult> UploadImage()
+    {
+        bool results = false;
+        try
         {
-            bool Results = false;
-            try
+            var uploadedFiles = Request.Form.Files;
+
+            foreach (var source in uploadedFiles)
             {
-                var Uploadedfilses = Request.Form.Files;
-
-                foreach (var source in Uploadedfilses)
-                {
-   
-
+                    if (!IsImageFile(source))
+                    {
+                        return BadRequest("Invalid file type. Only image files are allowed.");
+                    }
                     string input = source.FileName;
-                    string[] sections = input.Split('\\');
+                string[] sections = input.Split('\\');
 
-                    string sectionOne = sections[0]; // "collection"
-                    string sectionTwo = sections[1]; // "something else"
+                string sectionOne = sections[0]; 
+                string sectionTwo = sections[1]; 
 
-                    string fileName = sectionTwo;
-                    string filePath = GetFilePath(sectionOne);
+                string fileName = sectionTwo;
+                string filePath = GetFilePath(sectionOne);
 
-                    if (!System.IO.Directory.Exists(filePath))
-                    {
-                        System.IO.Directory.CreateDirectory(filePath);
-                    }
-                    string imagePath = filePath + "\\" + fileName;
-                    if (System.IO.File.Exists(imagePath))
-                    {
-                        System.IO.File.Delete(imagePath);
-                    }
-                    using (FileStream stream = System.IO.File.Create(imagePath))
-                    {
-                        await source.CopyToAsync(stream);
-                        Results = true;
-                    }
-                    var image = new ImageDto
-                    {
-                        Name = fileName,
-                        Guid=source.Name,
-                        Url= imagePath,
-                    };
-                  await  _fileService.AddAsync(image);
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
                 }
 
+                string imagePath = Path.Combine(filePath, fileName);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+
+                using (FileStream stream = System.IO.File.Create(imagePath))
+                {
+                    await source.CopyToAsync(stream);
+                    results = true;
+                }
+
+                // Get the width and height of the image using System.Drawing
+                int width, height;
+                    using (Image img = Image.Load(imagePath))
+                    {
+                        width = img.Width;
+                        height = img.Height;
+                    }
+
+                    var image = new ImageDto
+                {
+                    Name = fileName,
+                    Guid = source.Name,
+                    Url = imagePath,
+                    Width = width,
+                    Height = height,
+                };
+                await _fileService.AddAsync(image);
             }
-            catch (Exception ex)
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error uploading images");
+            return StatusCode(500, "Error uploading images");
+        }
+        return Ok(results);
+    }
+        [NonAction]
+        private bool IsImageFile(IFormFile file)
+        {
+            if (file.ContentType.StartsWith("image/"))
             {
-                _logger.LogError(ex, "Error fetching images");
-                return StatusCode(500, "Error fetching images");
+                return true;
             }
-            return Ok(Results);
+
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+            string extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            return allowedExtensions.Contains(extension);
         }
 
         [NonAction]
