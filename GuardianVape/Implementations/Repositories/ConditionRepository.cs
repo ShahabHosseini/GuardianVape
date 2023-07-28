@@ -15,7 +15,14 @@ namespace DataAccess.Implementations.Repositories
 
         public async Task<ICollection<ConditionType>>  GetAllConditionTypeAsync()
         {
-            return await _context.ConditionTypes.ToListAsync();
+            try
+            {
+                return await _context.ConditionTypes.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
     }
 }

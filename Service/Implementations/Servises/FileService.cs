@@ -59,6 +59,7 @@ namespace Service.Implementations.Servises
                 Mapper = new Mapper(Configuration);
                 var image = Mapper.Map<Image>(imageDto);
                 // user.Id=userDto.Id;
+                image.UploadDate = DateTime.Now;
                 await unitOfWork.File.AddAsync(image);
                 await unitOfWork.Commit();
             }

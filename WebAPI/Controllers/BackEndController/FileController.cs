@@ -70,8 +70,17 @@ namespace WebAPI.Controllers
 
                 foreach (var source in Uploadedfilses)
                 {
-                    string fileName = source.FileName;
-                    string filePath = GetFilePath(fileName);
+   
+
+                    string input = source.FileName;
+                    string[] sections = input.Split('\\');
+
+                    string sectionOne = sections[0]; // "collection"
+                    string sectionTwo = sections[1]; // "something else"
+
+                    string fileName = sectionTwo;
+                    string filePath = GetFilePath(sectionOne);
+
                     if (!System.IO.Directory.Exists(filePath))
                     {
                         System.IO.Directory.CreateDirectory(filePath);
@@ -105,9 +114,9 @@ namespace WebAPI.Controllers
         }
 
         [NonAction]
-        private string GetFilePath(string Code)
+        private string GetFilePath(string path)
         {
-            return _webHostEnvironment.WebRootPath + "\\Image\\Collection";
+            return _webHostEnvironment.WebRootPath + "\\Image\\"+path;
         }
 
 
