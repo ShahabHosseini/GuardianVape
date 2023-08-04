@@ -51,6 +51,11 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        [HttpGet("get-collections")]
+        public async Task<IActionResult> GetCollectionsAll()
+        {
+            return Ok(await _collectionService.GetCollectionsAllAsync());
+        }
 
 
     }

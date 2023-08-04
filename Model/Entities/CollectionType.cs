@@ -5,7 +5,7 @@ namespace Model.Entities
 {
     public class CollectionType : EntityBase
     {
-        public ICollection<Condition> Conditions { get; set; }
+        public ICollection<Condition> Conditions { get; set; } = new List<Condition>();
         public bool CollType { get; set; }
         public bool ConditionType { get; set; } = true;
     }

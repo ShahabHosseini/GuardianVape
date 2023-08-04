@@ -10,6 +10,7 @@ namespace Service.Contracts.Services
     public interface ICollectionService
     {
         Task<List<IdTitleDto>> GetAllConditionTypeAsync();
+        Task<List<CollectionDto>> GetCollectionsAllAsync();
         Task Save(CollectionDto collectionDto);
     }
 }

@@ -10,5 +10,6 @@ namespace Share.DTO
     {
         public TitleDescriptionDto TitleDescription { get; set; } = new TitleDescriptionDto();
         public CollectionTypeDto CollectionType { get; set; } = new CollectionTypeDto();
+        public string? ImageGuid { get; set; } =string.Empty;
     }
 }

@@ -10,11 +10,11 @@ namespace Model.Entities
 
         // Relationship
         public int ConditionTypeId { get; set; }
-        public ConditionType ConditionType { get; set; } = new ConditionType();
+        public virtual ConditionType ConditionType { get; set; }
 
         // Navigation property
         public int CollectionTypeId { get; set; }
-        public CollectionType CollectionType { get; set; }
+        public virtual CollectionType CollectionType { get; set; }
 
         public bool AllCondition { get; set; } = false;
     }

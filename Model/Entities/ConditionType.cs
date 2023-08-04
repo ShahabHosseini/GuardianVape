@@ -7,6 +7,6 @@ namespace Model.Entities;
 public partial class ConditionType : EntityBase
 {
     public string Title { get; set; } = string.Empty;
-    public ICollection<Condition> Conditions { get; set; }
+    public ICollection<Condition> Conditions { get; set; } = new List<Condition>();
 
 }

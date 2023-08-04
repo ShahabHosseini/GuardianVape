@@ -1,5 +1,4 @@
-﻿using DataAccess.EntityConfiguration;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Model.Entities;
 
@@ -15,9 +14,13 @@ namespace DataAccess.EntityConfiguration
 
             // Define the relationship
             builder.HasOne(c => c.ConditionType)
-                   .WithMany()
-                   .HasForeignKey(c => c.ConditionTypeId)
-                   .OnDelete(DeleteBehavior.Restrict);
+               .WithMany() // Change from WithOne() to WithMany()
+               .HasForeignKey(c => c.ConditionTypeId) // Add foreign key property
+               .OnDelete(DeleteBehavior.Restrict);
+
+
         }
+
+
     }
 }

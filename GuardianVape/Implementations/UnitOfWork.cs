@@ -26,6 +26,7 @@ namespace DataAccess.Implementations
             Variant =new VariantRepository(_context);
             Vendor=new VendorRepository(_context);
             File=new FileRepository(_context);
+            ConditionType=new ConditionTypeRepository(_context);    
         }
 
         public IAddressRepository Address { get; private set; }
@@ -60,6 +61,7 @@ namespace DataAccess.Implementations
 
         public IFileRepository File { get; private set; }
 
+        public IConditionTypeRepository ConditionType { get; private set; }
 
         public async Task Commit()
         {
