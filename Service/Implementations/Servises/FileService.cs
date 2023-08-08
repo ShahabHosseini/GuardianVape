@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -95,6 +96,23 @@ namespace Service.Implementations.Servises
 
                 await unitOfWork.File.UpdateAsync(image,image.Id);
                 await unitOfWork.Commit();
+            }
+        }
+
+        public async Task<ImageDto> FindbyGuidAsync(string guid)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                try
+                {
+                    var image = await unitOfWork.File.FindAsync(x=>x.GUID==guid);
+                    return Mapper.Map<ImageDto>(image);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
             }
         }
     }

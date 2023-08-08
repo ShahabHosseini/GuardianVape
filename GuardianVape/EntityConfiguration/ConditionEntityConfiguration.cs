@@ -14,11 +14,14 @@ namespace DataAccess.EntityConfiguration
 
             // Define the relationship
             builder.HasOne(c => c.ConditionType)
-               .WithMany() // Change from WithOne() to WithMany()
-               .HasForeignKey(c => c.ConditionTypeId) // Add foreign key property
+               .WithMany() 
+               .HasForeignKey(c => c.ConditionTypeId) 
                .OnDelete(DeleteBehavior.Restrict);
 
-
+            builder.HasOne(c => c.EqualType)
+              .WithMany()
+              .HasForeignKey(c => c.EqualTypeId)
+              .OnDelete(DeleteBehavior.Restrict);
         }
 
 

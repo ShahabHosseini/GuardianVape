@@ -17,6 +17,8 @@ public partial class GVDbContext : DbContext
     public virtual DbSet<Address> Addresses { get; set; }
 
     public virtual DbSet<Body> Bodies { get; set; }
+    public virtual DbSet<EqualType> EqualTypes { get; set; }
+
 
     public virtual DbSet<Category> Categories { get; set; }
 

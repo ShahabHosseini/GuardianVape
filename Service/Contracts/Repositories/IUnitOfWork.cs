@@ -7,6 +7,7 @@
         IBodyRepository Body { get; }
         ICategoryRepository Category { get; }
         ICollectionRepository Collection { get; }
+        ICollectionTypeRepository CollectionType { get; }
         IConditionTypeRepository ConditionType { get; }
 
         ICommonRepository Common { get; }

@@ -15,10 +15,7 @@ namespace DataAccess.EntityConfiguration
             builder.Property(e => e.Id).HasColumnName("ID");
             builder.Property(e => e.CollType).IsRequired();
             builder.Property(e => e.ConditionType).IsRequired();
-            builder.HasMany(e => e.Conditions)
-                .WithOne(c => c.CollectionType)
-                .HasForeignKey(c => c.CollectionTypeId)
-                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

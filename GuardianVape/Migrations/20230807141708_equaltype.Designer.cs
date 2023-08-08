@@ -4,6 +4,7 @@ using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GVDbContext))]
-    partial class GVDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807141708_equaltype")]
+    partial class equaltype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,6 +247,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("EqualTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("EqualTypeId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("GUID")
                         .IsRequired()
                         .HasMaxLength(36)
@@ -260,6 +266,8 @@ namespace DataAccess.Migrations
                     b.HasIndex("ConditionTypeId");
 
                     b.HasIndex("EqualTypeId");
+
+                    b.HasIndex("EqualTypeId1");
 
                     b.ToTable("Condition", (string)null);
                 });
@@ -439,8 +447,7 @@ namespace DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ID");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -451,12 +458,11 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("EqualType", (string)null);
+                    b.ToTable("EqualTypes");
                 });
 
             modelBuilder.Entity("Model.Entities.Image", b =>
@@ -1243,10 +1249,14 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Model.Entities.EqualType", "EqualType")
-                        .WithMany("Conditions")
+                        .WithMany()
                         .HasForeignKey("EqualTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Model.Entities.EqualType", null)
+                        .WithMany("Conditions")
+                        .HasForeignKey("EqualTypeId1");
 
                     b.Navigation("ConditionType");
 

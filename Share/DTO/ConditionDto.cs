@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Share.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Share.DTO
 {
-    public class ConditionDto
+    public class ConditionDto 
     {
-        public ConditionTypeDto ConditionType { get; set; } 
-        public string EqualType { get; set; } = string.Empty;
+        public string Guid { get; set; } = string.Empty;
+        public IdTitleDto ConditionType { get; set; } 
+        public IdTitleDto EqualType { get; set; }
         public string Result { get; set; } = string.Empty;
         public bool AllCondition { get; set; } = false;
         public bool AnyCondition { get; set; } = false;

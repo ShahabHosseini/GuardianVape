@@ -13,6 +13,27 @@ namespace DataAccess.Implementations.Repositories
             _context = context;
             
         }
+        public async Task<ICollection<Collection>> GetAllWithImageAsync()
+        {
+            var collectionsWithImages = await _context.Set<Collection>()
+                .Include(collection => collection.Image)
+                .ToListAsync();
 
-    }
+            return collectionsWithImages;
+        }
+        public async Task<Collection> GetByGuidsync(string guid)
+        {
+            var collection = await _context.Set<Collection>()
+    .Include(c => c.CollectionType)
+        .ThenInclude(ct => ct.Conditions)
+            .ThenInclude(cond => cond.ConditionType)
+    .Include(c => c.CollectionType)
+        .ThenInclude(ct => ct.Conditions)
+            .ThenInclude(cond => cond.EqualType)
+    .SingleOrDefaultAsync(c => c.GUID == guid);
+
+            return collection;
+        }
+
+     }
 }

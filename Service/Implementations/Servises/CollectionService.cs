@@ -30,12 +30,36 @@ namespace Service.Implementations.Servises
             }
         }
 
+        public async Task<List<IdTitleDto>> GetAllEqualTypeAsync()
+        {
+            Configuration = new MapperConfiguration(cfg => cfg.CreateMap<EqualType, IdTitleDto>());
+            Configuration.AssertConfigurationIsValid();
+            Mapper = new Mapper(Configuration);
+
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+
+                var equalTypes = await unitOfWork.Condition.GetAllEqualTypeAsync();
+                return Mapper.Map<List<IdTitleDto>>(equalTypes);
+            }
+        }
+
         public async Task<List<CollectionDto>> GetCollectionsAllAsync()
         {
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
-                var collections = await unitOfWork.Collection.GetAllAsync();
+                var collections = await unitOfWork.Collection.GetAllWithImageAsync();
                 var collectionDtos = collections.Select(MapCollectionToDto).ToList();
+                return collectionDtos;
+
+            }
+        }
+        public async Task<CollectionDto> GetCollectionAsync(string guid)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                var collection = await unitOfWork.Collection.GetByGuidsync(guid);
+                var collectionDtos = MapCollectionToDto(collection);
                 return collectionDtos;
 
             }
@@ -45,25 +69,63 @@ namespace Service.Implementations.Servises
         {
             var collectionDto = new CollectionDto
             {
+                Guid=collection.GUID,
                 TitleDescription = new TitleDescriptionDto
                 {
                     Title = collection.Title,
                     Description = collection.Description
                 },
-                CollectionType = MapCollectionTypeToDto(collection.CollectionType)
+                CollectionType = MapCollectionTypeToDto(collection.CollectionType),
+                Image=MapImageToDto(collection.Image),
+                
             };
 
             return collectionDto;
         }
 
+        private ImageDto MapImageToDto(Image? image)
+        {
+            if (image == null)
+                return null;
+
+            var imageDto = new ImageDto 
+            { 
+                Alt=image.Alt,
+                Caption=image.Caption,
+                Description=image.Description,
+                Url=image.Url,
+                UploadDate=image.UploadDate,
+                Guid=image.GUID,
+
+            };
+            return imageDto;
+        }
+
         private CollectionTypeDto MapCollectionTypeToDto(CollectionType collectionType)
         {
-            var collectionTypeDto = new CollectionTypeDto
+            if (collectionType != null)
             {
-                // Map other properties of CollectionTypeDto from CollectionType as needed
-            };
+                var collectionTypeDto = new CollectionTypeDto
+                {
+                    //     CollType = collectionType.CollType,
+                    ConditionType = collectionType.ConditionType,
+                    Guid= collectionType.GUID,
+                    Conditions = collectionType.Conditions.Select(c => new ConditionDto
+                    {
+                        // Map properties of ConditionDto from Condition as needed
+                        // For example:
+                        ConditionType = new IdTitleDto { Id = c.ConditionTypeId, Title = c.ConditionType.Title,Guid=c.ConditionType.GUID },
+                        EqualType = new IdTitleDto { Id = c.EqualTypeId, Title = c.EqualType.Title,Guid=c.EqualType.GUID },
+                        Result = c.Result,
+                        Guid=c.GUID,
+                        // ...
+                    }).ToList()
+                };
 
-            return collectionTypeDto;
+                return collectionTypeDto;
+            }
+            else
+                return null;
         }
 
         public async Task Save(CollectionDto collectionDto)
@@ -73,22 +135,29 @@ namespace Service.Implementations.Servises
                 using (var unitOfWork = _unitOfWorkFactory.Create())
                 {
                     Image image = new Image();
-                    if (collectionDto.ImageGuid != string.Empty)
+                    int? imageid=null ;
+
+                    if (collectionDto.Image != null)
                     {
-                         image = unitOfWork.File.FindAsync(x => x.GUID == collectionDto.ImageGuid).Result;
+                         image = unitOfWork.File.FindAsync(x => x.GUID == collectionDto.Image.Guid).Result;
                     }
+                    if (image != null && image.Id!=0)
+                    {
+                        imageid = image.Id;
+                    }
+
                     var collection = new Collection
                     {
                         Title = collectionDto.TitleDescription.Title,
                         Description = collectionDto.TitleDescription.Description,
                         GUID = Guid.NewGuid().ToString(),
-                        ImageId=image.Id,
+                        ImageId= imageid,
                         CollectionType = new CollectionType
                         {
                             Conditions = collectionDto.CollectionType.Conditions.Select(c => new Condition
                             {
                                 ConditionTypeId = c.ConditionType.Id, // Use the existing ConditionTypeId from the DTO
-                                EqualType = c.EqualType,
+                                EqualTypeId = c.EqualType.Id,
                                 Result = c.Result,
                                 AllCondition = c.AllCondition,
                                 GUID = Guid.NewGuid().ToString(),
@@ -98,10 +167,7 @@ namespace Service.Implementations.Servises
                         }
                     };
 
-                    if (collection.ImageId == 0)
-                    {
-                        collection.ImageId = null;
-                    }
+
                     var res = await unitOfWork.Collection.AddAsync(collection);
                     await unitOfWork.Commit();
                 }
@@ -112,5 +178,88 @@ namespace Service.Implementations.Servises
                 // Handle the exception appropriately
             }
         }
+
+        public async Task Update(CollectionDto collectionDto)
+        {
+            try
+            {
+                using (var unitOfWork = _unitOfWorkFactory.Create())
+                {
+                    Image image = null;
+                    int? imageId = null;
+
+                    if (collectionDto.Image != null)
+                    {
+                        image = await unitOfWork.File.FindAsync(x => x.GUID == collectionDto.Image.Guid);
+                    }
+
+                    if (image != null && image.Id != 0)
+                    {
+                        imageId = image.Id;
+                    }
+
+                    var existingCollection = await unitOfWork.Collection.FindAsync(x => x.GUID == collectionDto.Guid);
+                    if (existingCollection != null)
+                    {
+                        existingCollection.Title = collectionDto.TitleDescription.Title;
+                        existingCollection.Description = collectionDto.TitleDescription.Description;
+                        existingCollection.Image = image;
+
+                        // Update CollectionType
+                        var existingCollectionType = await unitOfWork.CollectionType.FindAsync(x => x.GUID == collectionDto.CollectionType.Guid);
+                        if (existingCollectionType != null)
+                        {
+                            // Update existing CollectionType
+                            existingCollectionType.CollType = collectionDto.CollectionType.CollectionType;
+                            existingCollectionType.ConditionType = collectionDto.CollectionType.ConditionType;
+                        }
+                        else
+                        {
+                            // Create a new CollectionType
+                            existingCollection.CollectionType = new CollectionType
+                            {
+                                CollType = collectionDto.CollectionType.CollectionType,
+                                ConditionType = collectionDto.CollectionType.ConditionType
+                            };
+                        }
+
+                        // Update or add Conditions
+                        foreach (var conditionDto in collectionDto.CollectionType.Conditions)
+                        {
+                            var existingCondition = await unitOfWork.Condition.FindAsync(c => c.GUID == conditionDto.Guid);
+                            if (existingCondition != null)
+                            {
+                                existingCondition.ConditionTypeId = conditionDto.ConditionType.Id;
+                                existingCondition.EqualTypeId = conditionDto.EqualType.Id;
+                                existingCondition.Result = conditionDto.Result;
+                                existingCondition.AllCondition = conditionDto.AllCondition;
+                            }
+                            else
+                            {
+                                // Create a new Condition
+                                var newCondition = new Condition
+                                {
+                                    ConditionTypeId = conditionDto.ConditionType.Id,
+                                    EqualTypeId = conditionDto.EqualType.Id,
+                                    Result = conditionDto.Result,
+                                    AllCondition = conditionDto.AllCondition,
+                                    GUID = conditionDto.Guid
+                                };
+                                existingCollectionType?.Conditions.Add(newCondition);
+                            }
+                        }
+                    }
+
+                    await unitOfWork.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                // Throw a custom exception or return an appropriate result
+            }
+        }
+
     }
+
 }

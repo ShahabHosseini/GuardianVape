@@ -11,8 +11,10 @@ namespace DataAccess.Implementations.Repositories
 {
     public class FileRepository : GenericRepository<Image>, IFileRepository
     {
+        private readonly DbContext _context;
         public FileRepository(DbContext context) : base(context)
         {
+            _context = context;
         }
     }
 }

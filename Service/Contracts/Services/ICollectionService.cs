@@ -12,5 +12,8 @@ namespace Service.Contracts.Services
         Task<List<IdTitleDto>> GetAllConditionTypeAsync();
         Task<List<CollectionDto>> GetCollectionsAllAsync();
         Task Save(CollectionDto collectionDto);
+        Task<CollectionDto> GetCollectionAsync(string guid);
+        Task<List<IdTitleDto>> GetAllEqualTypeAsync();
+        Task Update(CollectionDto collectionDto);
     }
 }

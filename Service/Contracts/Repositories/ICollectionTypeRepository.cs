@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace Service.Contracts.Repositories
 {
-    public interface ICollectionRepository : IGenericRepository<Collection>
+    public interface ICollectionTypeRepository : IGenericRepository<CollectionType>
     {
-        Task<ICollection<Collection>> GetAllWithImageAsync();
-        Task<Collection> GetByGuidsync(string guid);
-
     }
 }
