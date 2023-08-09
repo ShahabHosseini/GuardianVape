@@ -10,7 +10,7 @@ namespace Share.DTO
     {
         public string Guid { get; set; } = string.Empty;
         public IList<ConditionDto> Conditions { get; set; }
-        public bool CollectionType { get; set; } = true;
-        public bool ConditionType { get; set; } = true;
+        //public bool CollectionType { get; set; } = true;
+        //public bool ConditionType { get; set; } = true;
     }
 }

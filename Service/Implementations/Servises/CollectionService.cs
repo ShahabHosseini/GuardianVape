@@ -108,7 +108,7 @@ namespace Service.Implementations.Servises
                 var collectionTypeDto = new CollectionTypeDto
                 {
                     //     CollType = collectionType.CollType,
-                    ConditionType = collectionType.ConditionType,
+                    //ConditionType = collectionType.ConditionType,
                     Guid= collectionType.GUID,
                     Conditions = collectionType.Conditions.Select(c => new ConditionDto
                     {
@@ -154,6 +154,7 @@ namespace Service.Implementations.Servises
                         ImageId= imageid,
                         CollectionType = new CollectionType
                         {
+                            GUID= collectionDto.CollectionType.Guid,
                             Conditions = collectionDto.CollectionType.Conditions.Select(c => new Condition
                             {
                                 ConditionTypeId = c.ConditionType.Id, // Use the existing ConditionTypeId from the DTO
@@ -162,8 +163,8 @@ namespace Service.Implementations.Servises
                                 AllCondition = c.AllCondition,
                                 GUID = Guid.NewGuid().ToString(),
                             }).ToList(),
-                            CollType = collectionDto.CollectionType.CollectionType,
-                            ConditionType = collectionDto.CollectionType.ConditionType
+                            //CollType = collectionDto.CollectionType.CollectionType,
+                            //ConditionType = collectionDto.CollectionType.ConditionType
                         }
                     };
 
@@ -210,16 +211,16 @@ namespace Service.Implementations.Servises
                         if (existingCollectionType != null)
                         {
                             // Update existing CollectionType
-                            existingCollectionType.CollType = collectionDto.CollectionType.CollectionType;
-                            existingCollectionType.ConditionType = collectionDto.CollectionType.ConditionType;
+                            //existingCollectionType.CollType = collectionDto.CollectionType.CollectionType;
+                            //existingCollectionType.ConditionType = collectionDto.CollectionType.ConditionType;
                         }
                         else
                         {
                             // Create a new CollectionType
                             existingCollection.CollectionType = new CollectionType
                             {
-                                CollType = collectionDto.CollectionType.CollectionType,
-                                ConditionType = collectionDto.CollectionType.ConditionType
+                                //CollType = collectionDto.CollectionType.CollectionType,
+                                //ConditionType = collectionDto.CollectionType.ConditionType
                             };
                         }
 
@@ -256,7 +257,7 @@ namespace Service.Implementations.Servises
             catch (Exception ex)
             {
                 // Log the exception
-                // Throw a custom exception or return an appropriate result
+                throw ex;
             }
         }
 
