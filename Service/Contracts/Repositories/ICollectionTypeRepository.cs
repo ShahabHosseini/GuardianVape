@@ -9,5 +9,6 @@ namespace Service.Contracts.Repositories
 {
     public interface ICollectionTypeRepository : IGenericRepository<CollectionType>
     {
+        Task<CollectionType> FindWithConditionsAsync(Func<CollectionType, bool> value);
     }
 }

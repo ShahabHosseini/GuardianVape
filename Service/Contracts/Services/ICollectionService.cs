@@ -15,5 +15,6 @@ namespace Service.Contracts.Services
         Task<CollectionDto> GetCollectionAsync(string guid);
         Task<List<IdTitleDto>> GetAllEqualTypeAsync();
         Task Update(CollectionDto collectionDto);
+        Task<ICollection<CollectionDto>> GetParents();
     }
 }

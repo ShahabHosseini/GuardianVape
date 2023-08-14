@@ -13,5 +13,6 @@ namespace Service.Contracts.Repositories
     {
         Task<ICollection<ConditionType>>  GetAllConditionTypeAsync();
         Task<ICollection<EqualType>> GetAllEqualTypeAsync();
+        Task Remove(Condition conditionToRemove);
     }
 }

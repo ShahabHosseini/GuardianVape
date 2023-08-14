@@ -11,6 +11,7 @@ namespace Share.DTO
     public class CollectionDto 
     {
         [MaxLength(36)]
+        public int? ParentId { get; set; }
         public string Guid { get; set; } = string.Empty;
         public TitleDescriptionDto TitleDescription { get; set; } = new TitleDescriptionDto();
         public CollectionTypeDto CollectionType { get; set; } = new CollectionTypeDto();

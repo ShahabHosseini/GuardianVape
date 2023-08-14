@@ -10,4 +10,7 @@ public partial class Collection : EntityBase
     public  int? ImageId { get; set; }
     public virtual Image? Image { get; set; } 
     public virtual CollectionType CollectionType { get; set; }
+    public int? ParentId { get; set; }
+    public virtual Collection? Parent { get; set; } // Reference to the parent collection
+
 }

@@ -52,7 +52,7 @@ namespace Service.Implementations.Servises
         {
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
-                var res = await _fileValidator.NameExist(imageDto.Name, imageDto.Url);
+                var res = await _fileValidator.NameExist(imageDto.Name, imageDto.Url,imageDto.Length);
                 if (!string.IsNullOrEmpty(res) || imageDto.Name==string.Empty || imageDto.Url==string.Empty)
                     throw new Exception(res);
 

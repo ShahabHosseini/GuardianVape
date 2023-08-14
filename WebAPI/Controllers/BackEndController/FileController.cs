@@ -117,7 +117,8 @@ namespace WebAPI.Controllers
                     Url = imagePath,
                     Width = width,
                     Height = height,
-                };
+                    Length=source.Length,
+                    };
                 await _fileService.AddAsync(image);
             }
         }

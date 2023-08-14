@@ -1,12 +1,12 @@
-﻿using DataAccess.Context;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using DataAccess.Context;
 using Model.Entities;
 using Service.Contracts.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace DataAccess.Implementations.Repositories
 {
@@ -18,6 +18,16 @@ namespace DataAccess.Implementations.Repositories
         {
             _context = context;
 
+        }
+        public async Task<CollectionType> FindWithConditionsAsync(Func<CollectionType, bool> value)
+        {
+            var collectionTypes = await _context.CollectionTypes
+                .Include(x => x.Conditions)
+                .ToListAsync(); // Retrieve all records from the database
+
+            var result = collectionTypes.FirstOrDefault(value); // Perform local filtering
+
+            return result;
         }
     }
 }

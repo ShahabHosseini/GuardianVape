@@ -59,17 +59,33 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        [HttpGet("get-parents")]
+        public async Task<IActionResult> GetParnts()
+        {
+            return Ok(await _collectionService.GetParents());
+        }
+
         [HttpPost("update-collection")]
         public async Task<IActionResult> UpdateCollection(CollectionDto collectionDto)
         {
-            await _collectionService.Update(collectionDto);
+            await  _collectionService.Update(collectionDto);
             return Ok();
         }
 
         [HttpPost("get-collection/{guid}")]
         public async Task<IActionResult> GetCollection(string guid)
         {
-            return Ok(await _collectionService.GetCollectionAsync(guid));
+            var collection = await _collectionService.GetCollectionAsync(guid);
+ 
+            if(collection.Image!=null)
+            {
+                string HostUrl = "https://localhost:7278/";
+                string relativePath = collection?.Image?.Url.Replace(_webHostEnvironment.WebRootPath, "").Replace("\\", "/");
+                string imageUrl = HostUrl.TrimEnd('/') + relativePath;
+                collection.Image.Url = imageUrl;
+
+            }
+            return Ok(collection);
         }
 
         [HttpGet("get-collections")]

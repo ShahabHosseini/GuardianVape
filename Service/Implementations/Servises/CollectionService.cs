@@ -127,6 +127,17 @@ namespace Service.Implementations.Servises
             else
                 return null;
         }
+        public async Task<ICollection<CollectionDto>> GetParents()
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                var collections = await unitOfWork.Collection.GetAllAsync();
+
+                var dto = collections.Select(MapCollectionToDto).ToList(); 
+
+                return dto;
+            }
+        }
 
         public async Task Save(CollectionDto collectionDto)
         {
@@ -168,7 +179,6 @@ namespace Service.Implementations.Servises
                         }
                     };
 
-
                     var res = await unitOfWork.Collection.AddAsync(collection);
                     await unitOfWork.Commit();
                 }
@@ -189,7 +199,7 @@ namespace Service.Implementations.Servises
                     Image image = null;
                     int? imageId = null;
 
-                    if (collectionDto.Image != null)
+                    if (collectionDto.Image.Guid != string.Empty)
                     {
                         image = await unitOfWork.File.FindAsync(x => x.GUID == collectionDto.Image.Guid);
                     }
@@ -198,6 +208,10 @@ namespace Service.Implementations.Servises
                     {
                         imageId = image.Id;
                     }
+                    else
+                    {
+                        imageId = null;
+                    }
 
                     var existingCollection = await unitOfWork.Collection.FindAsync(x => x.GUID == collectionDto.Guid);
                     if (existingCollection != null)
@@ -205,9 +219,10 @@ namespace Service.Implementations.Servises
                         existingCollection.Title = collectionDto.TitleDescription.Title;
                         existingCollection.Description = collectionDto.TitleDescription.Description;
                         existingCollection.Image = image;
+                        existingCollection.ImageId=imageId;
 
                         // Update CollectionType
-                        var existingCollectionType = await unitOfWork.CollectionType.FindAsync(x => x.GUID == collectionDto.CollectionType.Guid);
+                        var existingCollectionType = await unitOfWork.CollectionType.FindWithConditionsAsync(x => x.GUID == collectionDto.CollectionType.Guid);
                         if (existingCollectionType != null)
                         {
                             // Update existing CollectionType
@@ -223,6 +238,17 @@ namespace Service.Implementations.Servises
                                 //ConditionType = collectionDto.CollectionType.ConditionType
                             };
                         }
+
+                                        // Remove conditions that are not present in the DTO
+                var conditionsToRemove = existingCollectionType.Conditions
+                    .Where(existingCondition => !collectionDto.CollectionType.Conditions.Any(dtoCondition => dtoCondition.Guid == existingCondition.GUID))
+                    .ToList();
+                foreach (var conditionToRemove in conditionsToRemove)
+                {
+                    existingCollectionType.Conditions.Remove(conditionToRemove);
+                    unitOfWork.Condition.Remove(conditionToRemove); // Remove from the context
+                }
+
 
                         // Update or add Conditions
                         foreach (var conditionDto in collectionDto.CollectionType.Conditions)

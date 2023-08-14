@@ -36,5 +36,17 @@ namespace DataAccess.Implementations.Repositories
                 throw (ex);
             }
         }
+
+        public async Task Remove(Condition conditionToRemove)
+        {
+            try
+            {
+                _context.Conditions.Remove(conditionToRemove);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }

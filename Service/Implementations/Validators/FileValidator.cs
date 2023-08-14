@@ -18,14 +18,13 @@ namespace Service.Implementations.Validators
             _unitOfWorkFactory = unitOfWorkFactory;
 
         }
-        public async Task<string> NameExist(string name,string url)
+        public async Task<string> NameExist(string name,string url,long? length)
         {
             StringBuilder sb = new StringBuilder();
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
-                var _name = await unitOfWork.File.FindAllAsync(x => x.Name == name);
-                var _url= await unitOfWork.File.FindAllAsync(x => x.Url == url);
-                if (_name.Count>=1  && _url.Count>=1) sb.AppendLine("this image already exist");
+                var image = await unitOfWork.File.FindAllAsync(x => x.Name == name && x.Url==url && x.Length==length);
+                if (image.Count>=1) sb.AppendLine("this image already exist");
                
             }
 

@@ -14,6 +14,13 @@ namespace DataAccess.EntityConfiguration
             builder.Property(e => e.Description).HasMaxLength(500);
 
             builder.Property(e => e.Title).HasMaxLength(50);
+
+            builder.HasOne(e => e.Parent) // Self-referencing navigation property
+                .WithMany()               // Each collection can have multiple child collections
+                .HasForeignKey(e => e.ParentId) // Foreign key property in the entity
+                .OnDelete(DeleteBehavior.Restrict); // Define delete behavior if needed
         }
+
     }
 }
+

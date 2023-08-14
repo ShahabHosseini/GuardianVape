@@ -8,7 +8,7 @@ namespace Service.Contracts.Validators
 {
     public interface IFileValidator
     {
-        Task<string> NameExist(string name,string url);
+        Task<string> NameExist(string name,string url, long? Length);
 
     }
 }
