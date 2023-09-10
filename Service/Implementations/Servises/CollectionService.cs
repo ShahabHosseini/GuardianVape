@@ -239,14 +239,14 @@ namespace Service.Implementations.Servises
                             };
                         }
 
-                                        // Remove conditions that are not present in the DTO
+                // Remove conditions that are not present in the DTO
                 var conditionsToRemove = existingCollectionType.Conditions
                     .Where(existingCondition => !collectionDto.CollectionType.Conditions.Any(dtoCondition => dtoCondition.Guid == existingCondition.GUID))
                     .ToList();
                 foreach (var conditionToRemove in conditionsToRemove)
                 {
                     existingCollectionType.Conditions.Remove(conditionToRemove);
-                    unitOfWork.Condition.Remove(conditionToRemove); // Remove from the context
+                   await unitOfWork.Condition.Remove(conditionToRemove); // Remove from the context
                 }
 
 

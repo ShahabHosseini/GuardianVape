@@ -16,8 +16,13 @@ namespace DataAccess.Implementations.Repositories
         public async Task<ICollection<Collection>> GetAllWithImageAsync()
         {
             var collectionsWithImages = await _context.Set<Collection>()
-                .Include(collection => collection.Image)
-                .ToListAsync();
+        .Include(c => c.Image)
+        .Include(c => c.CollectionType)
+        .ThenInclude(ct => ct.Conditions)
+        .ThenInclude(cond => cond.ConditionType)
+        .Include(c => c.CollectionType)
+        .ThenInclude(ct => ct.Conditions)
+        .ThenInclude(cond => cond.EqualType).ToListAsync();
 
             return collectionsWithImages;
         }

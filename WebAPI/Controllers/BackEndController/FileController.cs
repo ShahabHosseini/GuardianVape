@@ -62,9 +62,10 @@ namespace WebAPI.Controllers
 
         
 
-[HttpPost("upload-image")]
+    [HttpPost("upload-image")]
     public async Task<IActionResult> UploadImage()
     {
+            List<ImageDto> images = new();
         bool results = false;
         try
         {
@@ -119,7 +120,7 @@ namespace WebAPI.Controllers
                     Height = height,
                     Length=source.Length,
                     };
-                await _fileService.AddAsync(image);
+                    images.Add(_fileService.AddAsync(image).Result);
             }
         }
         catch (Exception ex)
@@ -127,7 +128,7 @@ namespace WebAPI.Controllers
             _logger.LogError(ex, "Error uploading images");
             return StatusCode(500, "Error uploading images");
         }
-        return Ok(results);
+        return Ok(images);
     }
         [NonAction]
         private bool IsImageFile(IFormFile file)
@@ -191,7 +192,6 @@ namespace WebAPI.Controllers
             }
          
                 return Ok(imageDtos);
-            
         }
 
         [HttpPost("update-image")]
@@ -206,20 +206,7 @@ namespace WebAPI.Controllers
             {
                 Ok(ex.Message);
             }
-
             return Ok(imageDto);
-
-        }
-
-        [NonAction]
-        private string GetImageByCode(string code)
-        {
-            string ImageUrl=string.Empty;
-            string HostUrl = "https://localhost:7278/";
-            string FilePath=GetFilePath(code);
-            string ImagePath=FilePath + "\\"+ "GUID";
-
-            return "";
         }
 
         public class SaveImageResponse

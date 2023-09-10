@@ -11,7 +11,12 @@ namespace DataAccess.EntityConfiguration
             builder.ToTable("Country");
 
             builder.Property(e => e.Id).HasColumnName("ID");
-            builder.Property(e => e.AreaCode).HasMaxLength(10);
+            builder.Property(e => e.Numcode).HasMaxLength(6);
+            builder.Property(e => e.Iso3).HasMaxLength(3);
+
+            builder.Property(e => e.Phonecode).HasMaxLength(5);
+
+
             builder.Property(e => e.Title).HasMaxLength(50);
         }
     }

@@ -31,7 +31,7 @@ namespace Service.Implementations.Validation
                     sb.AppendLine("Minimum password lenght should be 8!");
                 if (!(Regex.IsMatch(password, "[a-z]") && Regex.IsMatch(password, "[A-Z]") && Regex.IsMatch(password, "[0-9]")))
                     sb.AppendLine("Password should be Alphanumeric!");
-                if (!(Regex.IsMatch(password, "[<,>,.,[,{,(,*,+,?,^,$,|,_,-]")))
+                if (!(Regex.IsMatch(password, "[<,>,.,[,{,(,*,+,?,^,$,|,_,-,@]")))
                     sb.AppendLine("Password should be special chars!");
 
             }

@@ -148,8 +148,8 @@ namespace WebAPI.Controllers
             });
 
             var tokenCode = user.ResetPasswordToken;
-            DateTime emailTokenExoiry=user.ResetPasswordExpiry;
-            if(tokenCode!=resetPasswordDto.EmailToken || emailTokenExoiry<DateTime.Now)
+            DateTime emailTokenExpiry=user.ResetPasswordExpiry;
+            if(tokenCode!=resetPasswordDto.EmailToken || emailTokenExpiry<DateTime.Now)
             {
                 return BadRequest(new
                 {

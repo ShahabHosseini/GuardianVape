@@ -11,7 +11,7 @@ namespace Service.Contracts.Services
 {
     public interface IFileService : IBaseServices<ImageDto>
     {
-        Task AddAsync(ImageDto imageDto);
+        Task<ImageDto> AddAsync(ImageDto imageDto);
         Task<ImageDto> FindbyGuidAsync(string guid);
         Task<ICollection<ImageDto>> GetAllAsync();
         Task RemoveImage(ImageDto source);

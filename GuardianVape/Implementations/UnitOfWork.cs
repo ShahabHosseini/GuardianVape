@@ -28,6 +28,7 @@ namespace DataAccess.Implementations
             File=new FileRepository(_context);
             ConditionType=new ConditionTypeRepository(_context);    
             CollectionType=new CollectionTypeRepository(_context);
+            Country= new CountryRepository(_context);
         }
 
         public IAddressRepository Address { get; private set; }
@@ -61,6 +62,8 @@ namespace DataAccess.Implementations
         public IVendorRepository Vendor { get; private set; }
 
         public IFileRepository File { get; private set; }
+        public ICountryRepository Country { get; private set; }
+
 
         public IConditionTypeRepository ConditionType { get; private set; }
         public ICollectionTypeRepository CollectionType { get; private set; }

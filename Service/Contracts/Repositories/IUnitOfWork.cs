@@ -22,5 +22,6 @@
         IVariantRepository Variant { get; }
         IVendorRepository Vendor { get; }
         IFileRepository File { get; }
+        ICountryRepository Country { get; }
     }
 }

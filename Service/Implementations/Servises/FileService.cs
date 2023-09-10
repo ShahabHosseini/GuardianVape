@@ -12,6 +12,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+using Image = Model.Entities.Image;
 
 namespace Service.Implementations.Servises
 {
@@ -48,11 +50,12 @@ namespace Service.Implementations.Servises
             throw new NotImplementedException();
         }
 
-        public async Task AddAsync(ImageDto imageDto)
+        public async Task<ImageDto> AddAsync(ImageDto imageDto)
         {
+            Image imageres=new Image();
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
-                var res = await _fileValidator.NameExist(imageDto.Name, imageDto.Url,imageDto.Length);
+                var res = await _fileValidator.ImageExist(imageDto.Name, imageDto.Url,imageDto.Length);
                 if (!string.IsNullOrEmpty(res) || imageDto.Name==string.Empty || imageDto.Url==string.Empty)
                     throw new Exception(res);
 
@@ -61,9 +64,16 @@ namespace Service.Implementations.Servises
                 var image = Mapper.Map<Image>(imageDto);
                 // user.Id=userDto.Id;
                 image.UploadDate = DateTime.Now;
-                await unitOfWork.File.AddAsync(image);
+
+
+
+                Configuration = new MapperConfiguration(cfg => cfg.CreateMap<Image, ImageDto>());
+                Mapper = new Mapper(Configuration);
+
+                imageres = await unitOfWork.File.AddAsync(image);
                 await unitOfWork.Commit();
             }
+            return Mapper.Map <ImageDto>(imageres);
         }
 
         public async Task<ICollection<ImageDto>> GetAllAsync()
