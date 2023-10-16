@@ -6,11 +6,6 @@ using Service.Contracts.Services;
 using Service.Contracts.Validation;
 using Share.DTO;
 using Share.Helper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Implementations.Servises
 {
@@ -22,7 +17,7 @@ namespace Service.Implementations.Servises
 
         public virtual IMapper Mapper { get; set; }
         MapperConfiguration Configuration { get; set; }
-        public UserService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper,IUserDeleteInquiry inquiry,IUserValidator validator)
+        public UserService(IUnitOfWorkFactory unitOfWorkFactory, IMapper mapper, IUserDeleteInquiry inquiry, IUserValidator validator)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
             Mapper = mapper;
@@ -44,14 +39,14 @@ namespace Service.Implementations.Servises
             {
                 Configuration = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, User>());
                 Mapper = new Mapper(Configuration);
-                var user= Mapper.Map<User>(userDto);
+                var user = Mapper.Map<User>(userDto);
                 user.Password = password;
-               await unitOfWork.User.AddAsync(user);
+                await unitOfWork.User.AddAsync(user);
                 await unitOfWork.Commit();
             }
         }
 
-  
+
 
         public async Task<UserDto> GetAsync(UserDto userDto)
         {
@@ -60,9 +55,9 @@ namespace Service.Implementations.Servises
                 var user = await unitOfWork.User.FindAsync(x =>
                 x.UserName.Equals(userDto.UserName));
 
-                if(user!=null)
-                if(PasswordHasher.VerifyPassword(userDto.Password,user.Password))
-                    return Mapper.Map<UserDto>(user);
+                if (user != null)
+                    if (PasswordHasher.VerifyPassword(userDto.Password, user.Password))
+                        return Mapper.Map<UserDto>(user);
                 return null;
             }
         }
@@ -71,7 +66,7 @@ namespace Service.Implementations.Servises
         {
             using (var unitOfWork = _unitOfWorkFactory.Create())
             {
-              var user =  await unitOfWork.User.GetAllAsync();
+                var user = await unitOfWork.User.GetAllAsync();
                 return Mapper.Map<List<UserDto>>(user);
             }
         }
@@ -83,7 +78,6 @@ namespace Service.Implementations.Servises
                 Configuration = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, User>());
                 Mapper = new Mapper(Configuration);
                 var user = Mapper.Map<User>(userDto);
-               // user.Id=userDto.Id;
                 await unitOfWork.User.UpdateAsync(user, user.Id);
                 await unitOfWork.Commit();
             }

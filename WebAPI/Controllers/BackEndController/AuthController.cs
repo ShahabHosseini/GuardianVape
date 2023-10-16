@@ -165,7 +165,6 @@ namespace WebAPI.Controllers
                 Message="Password Reset Successfully!"
             });
         }
-
     }
 }
 
